@@ -1,24 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ClassClick from './component/ClassClick';
+import FunctionClick from './component/FunctionClick';
+import EventBinding from './component/EventBinding';
+import ParentComponent from './component/ParentComponent';
+import ConditionalRendering from './component/ConditionalRendering';
+import ListRendering from './component/ListRendering';
+import Styling from './styling/Styling';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" >
+        <Styling />
+        <ListRendering />
+        <ConditionalRendering />
+        <ParentComponent />
+        <ClassClick/>
+         <FunctionClick />
+         <EventBinding />
     </div>
   );
 }
