@@ -7,18 +7,21 @@ import ParentComponent from './component/ParentComponent';
 import ConditionalRendering from './component/ConditionalRendering';
 import ListRendering from './component/ListRendering';
 import Styling from './styling/Styling';
-
+import HookCounter from './hooksComponent/HookCounter';
+import HookCounterThree from './hooksComponent/HookCounterThree';
 
 function App() {
   return (
     <div className="App" >
-        <Styling />
+      <HookCounter />
+      <HookCounterThree />
+        {/* <Styling />
         <ListRendering />
         <ConditionalRendering />
         <ParentComponent />
         <ClassClick/>
          <FunctionClick />
-         <EventBinding />
+         <EventBinding /> */}
     </div>
   );
 }
