@@ -8,10 +8,12 @@ import ConditionalRendering from './component/ConditionalRendering';
 import ListRendering from './component/ListRendering';
 import Styling from './styling/Styling';
 import Form from './component/Form';
-import ConditionalyRun from './hooks/ConditionalyRun';
-import MouseMove from './hooks/MouseMove';
-import ConponentUnmount from './hooks/ConponentUnmount';
+import ConditionalyRun from './hooksComponent/ConditionalyRun';
+import MouseMove from './hooksComponent/MouseMove';
+import ConponentUnmount from './hooksComponent/ConponentUnmount';
 
+import HookCounter from './hooksComponent/HookCounter';
+import HookCounterThree from './hooksComponent/HookCounterThree';
 
 function App() {
   return (
@@ -27,6 +29,15 @@ function App() {
         {/* <ClassClick/> */}
          {/* <FunctionClick /> */}
          {/* <EventBinding /> */}
+      {/* <HookCounter /> */}
+      {/* <HookCounterThree /> */}
+        {/* <Styling />
+        <ListRendering />
+        <ConditionalRendering />
+        <ParentComponent />
+        <ClassClick/>
+         <FunctionClick />
+         <EventBinding /> */}
     </div>
   );
 }
