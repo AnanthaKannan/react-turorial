@@ -8,13 +8,15 @@ import ConditionalRendering from './component/ConditionalRendering';
 import ListRendering from './component/ListRendering';
 import Styling from './styling/Styling';
 import HookCounter from './hooksComponent/HookCounter';
-import HookCounterThree from './hooksComponent/HookCounterThree';
+import HookObject from './hooksComponent/HookObject';
+import HookArray from './hooksComponent/HookArray';
 
 function App() {
   return (
     <div className="App" >
-      <HookCounter />
-      <HookCounterThree />
+      {/* <HookArray /> */}
+      {/* <HookCounter />
+      <HookObject /> */}
         {/* <Styling />
         <ListRendering />
         <ConditionalRendering />
