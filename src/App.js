@@ -13,7 +13,16 @@ import MouseMove from './hooksComponent/MouseMove';
 import ConponentUnmount from './hooksComponent/ConponentUnmount';
 
 import HookCounter from './hooksComponent/HookCounter';
-import HookCounterThree from './hooksComponent/HookCounterThree';
+import HookObject from './hooksComponent/HookObject';
+import HookArray from './hooksComponent/HookArray';
+import FetchData from './hooksComponent/FetchData';
+import FetchDataButton from './hooksComponent/FetchDataButton';
+import Context from './hooksComponent/context/Context';
+import Reducer from './hooksComponent/Reducer';
+import ReducerTwo from './hooksComponent/ReducerTwo';
+
+export const UserContext = React.createContext();
+export const ChannelContext = React.createContext();
 
 function App() {
   return (
@@ -31,6 +40,21 @@ function App() {
          {/* <EventBinding /> */}
       {/* <HookCounter /> */}
       {/* <HookCounterThree /> */}
+
+      {/* <UserContext.Provider value={'kannan'} age={24}>
+          <ChannelContext.Provider value={'rapid'} >
+          <Context />
+          </ChannelContext.Provider>
+      </UserContext.Provider> */}
+
+      {/* <Reducer /> */}
+      {/* <ReducerTwo /> */}
+
+      {/* <FetchDataButton /> */}
+      {/* <FetchData /> */}
+      {/* <HookArray /> */}
+      {/* <HookCounter />
+      <HookObject /> */}
         {/* <Styling />
         <ListRendering />
         <ConditionalRendering />
