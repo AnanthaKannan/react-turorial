@@ -12,11 +12,25 @@ import HookObject from './hooksComponent/HookObject';
 import HookArray from './hooksComponent/HookArray';
 import FetchData from './hooksComponent/FetchData';
 import FetchDataButton from './hooksComponent/FetchDataButton';
+import Context from './hooksComponent/context/Context';
+
+export const UserContext = React.createContext();
+export const ChannelContext = React.createContext();
 
 function App() {
   return (
     <div className="App" >
-      <FetchDataButton />
+
+      <UserContext.Provider value={'kannan'}>
+          <ChannelContext.Provider value={'rapid'} >
+          <Context />
+          </ChannelContext.Provider>
+      </UserContext.Provider>
+
+    
+
+
+      {/* <FetchDataButton /> */}
       {/* <FetchData /> */}
       {/* <HookArray /> */}
       {/* <HookCounter />
