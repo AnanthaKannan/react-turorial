@@ -7,6 +7,8 @@ const ContextC = () => {
     const user = useContext(UserContext);
     const channel = useContext(ChannelContext);
 
+    console.log(user)
+
     return (
         <div>
             <p>Context</p>

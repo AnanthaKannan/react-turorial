@@ -13,6 +13,8 @@ import HookArray from './hooksComponent/HookArray';
 import FetchData from './hooksComponent/FetchData';
 import FetchDataButton from './hooksComponent/FetchDataButton';
 import Context from './hooksComponent/context/Context';
+import Reducer from './hooksComponent/Reducer';
+import ReducerTwo from './hooksComponent/ReducerTwo';
 
 export const UserContext = React.createContext();
 export const ChannelContext = React.createContext();
@@ -21,14 +23,14 @@ function App() {
   return (
     <div className="App" >
 
-      <UserContext.Provider value={'kannan'}>
+      {/* <UserContext.Provider value={'kannan'} age={24}>
           <ChannelContext.Provider value={'rapid'} >
           <Context />
           </ChannelContext.Provider>
-      </UserContext.Provider>
+      </UserContext.Provider> */}
 
-    
-
+      {/* <Reducer /> */}
+      <ReducerTwo />
 
       {/* <FetchDataButton /> */}
       {/* <FetchData /> */}
