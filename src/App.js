@@ -7,6 +7,11 @@ import ParentComponent from './component/ParentComponent';
 import ConditionalRendering from './component/ConditionalRendering';
 import ListRendering from './component/ListRendering';
 import Styling from './styling/Styling';
+import Form from './component/Form';
+import ConditionalyRun from './hooksComponent/ConditionalyRun';
+import MouseMove from './hooksComponent/MouseMove';
+import ConponentUnmount from './hooksComponent/ConponentUnmount';
+
 import HookCounter from './hooksComponent/HookCounter';
 import HookObject from './hooksComponent/HookObject';
 import HookArray from './hooksComponent/HookArray';
@@ -37,6 +42,19 @@ function App() {
 
   return (
     <div className="App" >
+    <ConponentUnmount />
+    {/* <MouseMove /> */}
+    {/* <ConditionalyRun /> */}
+      {/* <Form /> */}
+        {/* <Styling /> */}
+        {/* <ListRendering /> */}
+        {/* <ConditionalRendering /> */}
+        {/* <ParentComponent /> */}
+        {/* <ClassClick/> */}
+         {/* <FunctionClick /> */}
+         {/* <EventBinding /> */}
+      {/* <HookCounter /> */}
+      {/* <HookCounterThree /> */}
 
       <CountContext.Provider value={{ countState: count, countDispatch: dispatch }} >
     <GlobalState />

@@ -17,6 +17,7 @@ class ConditionalRendering extends Component {
         // Short circuit operator
         return isLogin && <div> Conditonal rendering </div>
 
+        // eslint-disable-next-line
         // Ternary conditional operator
         return (isLogin ?
             <div>Hai kannan</div> :
