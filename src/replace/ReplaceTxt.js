@@ -29,17 +29,30 @@ export default class ReplaceTxt extends Component {
     }
 
      highlight(text, replace) {
-         const { id, doc } = this.state;
+         let { id, doc } = this.state;
          text= `<span id="${id}" class="txt_sel toolTip">${text}</span>`;
-        var innerHTML = doc;
-        console.log('innerHTML_A', innerHTML)
-        var index = innerHTML.indexOf(text);
-        if (index >= 0) { 
-         innerHTML = innerHTML.substring(0,index) + replace  + innerHTML.substring(index + text.length);
-          console.log('innerHTML_B', innerHTML);
-         this.setState({ doc: innerHTML})
-        }
-        this.setState({show:false})
+        console.log("doc", doc);
+        // if(doc.props.id){
+
+        // }
+        let nodes= []
+         doc.forEach((tag, index) =>{
+            
+             if(typeof(tag) !== 'string'){
+                if(tag.props.id == id ){
+                    nodes[index] = replace
+                }
+                else{
+                    nodes[index] = tag;
+                }  
+             }
+             else{
+                nodes[index] = tag;
+             }
+         })
+
+         this.setState({doc:nodes, show:false})
+
       }
 
       showBox = (id) =>{
@@ -57,13 +70,16 @@ export default class ReplaceTxt extends Component {
 
       spellChk = () => {
           const { doc } = this.state;
-          let chnageDom =  doc.split(' ').map((str, index) => {
-              let id = `t${index}`
-              return  <span> some <span id={id} onMouseOver={ ()=> this.showBox(id) } 
-                        className='txt_sel toolTip'>datas</span> is here </span>
-          })
-        // let chnageDom =   <span> some <span id={'t0'} onMouseOver={ ()=> this.showBox('t0') } 
+        //   let chnageDom =  doc.split(' ').map((str, index) => {
+        //       let id = `t${index}`
+        //       return  <span> some <span id={id} onMouseOver={ ()=> this.showBox(id) } 
         //                 className='txt_sel toolTip'>datas</span> is here </span>
+        //   })
+        let chnageDom =  ["some", <span id={'t0'} onMouseOver={ ()=> this.showBox('t0') } 
+        className='txt_sel toolTip'>datas</span> , `is here`,
+         <span id={'t1'} onMouseOver={ ()=> this.showBox('t1') } 
+        className='txt_sel toolTip'>myname</span>, <span>my name</span>]
+                        
           this.setState({ doc: chnageDom})
       }
 
