@@ -7,9 +7,10 @@ export default class ReplaceTxt extends Component {
         show:false,
         x:0,
         y:0,
-        doc:"",
+        doc:[],
         id:null,
-        suggest:[]
+        suggest:[],
+        childLength:0
     }
 
     componentDidMount(){
@@ -83,12 +84,12 @@ export default class ReplaceTxt extends Component {
 
       getContent = ({currentTarget:div}) =>{
         const txt = document.getElementById(div.id).textContent;
-        console.log(txt)
-        this.state.doc = txt;
+        // this.state.doc = txt;
+        this.setState({doc: txt})
       }
 
       spellChk = async () => {
-        let { doc } = this.state;
+        let { doc, childLength } = this.state;
         console.log("documents", doc);
         let suggestions = await this.retextChk();
         let chnageDom = [];
@@ -105,19 +106,33 @@ export default class ReplaceTxt extends Component {
             suggestions.forEach((suggestion) =>{
                 let actual = suggestion.actual;
                 if(actual == word && typeof(word) === 'string'){
-                    chnageDom.push(<span id={ `t${id}`} onMouseOver={ ()=> this.showBox(`t${id}`) } className='txt_sel toolTip'>{` ${word}`}</span>);
+
+                    chnageDom.push(<span id={ `t${id}`} onMouseOver={ ()=> this.showBox(`t${id}`) } 
+                                        className='txt_sel toolTip'>{ (word[0] == ' ') ? word : ` ${word}`}</span>);
                     error = true;
                 }
             })
-            if(!error && typeof(word) === 'string') chnageDom.push(` ${word}`);
+            if(!error && typeof(word) === 'string') chnageDom.push((word[0] == ' ') ? word : ` ${word}`);
             if(typeof(word) !== 'string')chnageDom.push(word);
         })
-        //  chnageDom =  ["some", <span id={'t0'} onMouseOver={ ()=> this.showBox('t0') } 
-        // className='txt_sel toolTip'>datas</span> , `is here`,
-        //  <span id={'t1'} onMouseOver={ ()=> this.showBox('t1') } 
-        // className='txt_sel toolTip'>myname</span>, <span>my name</span>]
-            console.log(chnageDom)
-          this.setState({ doc: chnageDom})
+
+        let filterData = chnageDom.filter((arrTxt) => {
+            if(typeof(arrTxt) == 'string')
+               return arrTxt.trim()
+            else return arrTxt
+       });
+            let length = filterData.length;
+            console.log("childLength",childLength, 'length', length)
+            if(childLength > length){
+                let diff = childLength - length;
+                alert(diff)
+                Array(diff + 3).fill('').forEach((val) =>{
+                    filterData.push(val);
+                })
+            }
+        
+          console.log(chnageDom, filterData)
+          this.setState({ doc: filterData, childLength: filterData.length})
       }
 
     render() {
@@ -132,7 +147,6 @@ export default class ReplaceTxt extends Component {
                     placeholder="I look like a textarea" >
                         { doc }
                 </div>
-
 
                 {
                     show && 
