@@ -8,8 +8,10 @@ export default class ReplaceTxt extends Component {
         x:0,
         y:0,
         doc:"",
-        id:null
+        id:null,
+        suggest:[]
     }
+
     componentDidMount(){
         // this.intialCall()
     }
@@ -47,14 +49,37 @@ export default class ReplaceTxt extends Component {
          this.setState({doc:nodes, show:false});
       }
 
-      showBox = (id) =>{
+      
+
+      showBox = async(id) =>{
+        // to set the positon for the model box
         const possiton = document.getElementById(id);
         var style = window.getComputedStyle(possiton, null).getPropertyValue('font-size');
         var fontSize = parseFloat(style); 
         const x = possiton.offsetLeft ;
         const y = possiton.offsetTop + fontSize + 15;
-        this.setState({ show: true, x, y, id })
+        
+        // get the value form selected span
+        let hoverWord = document.getElementById(id).textContent;
+        let suggestions = await this.retextChk();
+        let suggest = [];
+        console.log("suggestions", suggestions);
+        suggestions.forEach((suggestion) =>{
+            let actual = suggestion.actual;
+            console.log("actual", actual, "hoverWord", hoverWord);
+            if(actual.trim() === hoverWord.trim()){
+               let suggestionList = suggestion.expected;
+               suggestionList.forEach((SuggestWord) =>{
+                   suggest.push(<span onClick={() => this.replaceTxt(actual, ` ${SuggestWord}`)} className='p-2 m-0 select rounded-top'> { SuggestWord } </span>)
+               })
+            }
+        })
+
+        console.log(suggest)
+        this.setState({ show: true, x, y, id, suggest })
       }
+
+     
 
       getContent = ({currentTarget:div}) =>{
         const txt = document.getElementById(div.id).textContent;
@@ -76,15 +101,16 @@ export default class ReplaceTxt extends Component {
         }
         console.log('splitWord', splitWord)
         splitWord.forEach((word, id) =>{
-            let error = false;
+                let error = false;
             suggestions.forEach((suggestion) =>{
                 let actual = suggestion.actual;
-                if(actual == word){
+                if(actual == word && typeof(word) === 'string'){
                     chnageDom.push(<span id={ `t${id}`} onMouseOver={ ()=> this.showBox(`t${id}`) } className='txt_sel toolTip'>{` ${word}`}</span>);
                     error = true;
                 }
             })
-            if(!error) chnageDom.push(` ${word}`)
+            if(!error && typeof(word) === 'string') chnageDom.push(` ${word}`);
+            if(typeof(word) !== 'string')chnageDom.push(word);
         })
         //  chnageDom =  ["some", <span id={'t0'} onMouseOver={ ()=> this.showBox('t0') } 
         // className='txt_sel toolTip'>datas</span> , `is here`,
@@ -95,7 +121,7 @@ export default class ReplaceTxt extends Component {
       }
 
     render() {
-        const { show, x, y, doc } = this.state;
+        const { show, x, y, doc, suggest } = this.state;
         return (
             <div className="container">
                 <br/> <br/> 
@@ -111,8 +137,7 @@ export default class ReplaceTxt extends Component {
                 {
                     show && 
                 <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>
-                    <p onClick={() => this.replaceTxt('datas', 'data')}
-                     className='p-2 m-0 select rounded-top'> data </p>
+                    { suggest }
                     <p className='p-2 m-0 ignore rounded-bottom'> 
                     <i className="fa fa-trash-o" aria-hidden="true"></i>
                      Ignonre</p>
