@@ -7,7 +7,7 @@ export default class ReplaceTxt extends Component {
         show:false,
         x:0,
         y:0,
-        doc:"ths is chennai",
+        doc:"",
         id:null
     }
     componentDidMount(){
@@ -18,7 +18,6 @@ export default class ReplaceTxt extends Component {
 
     retextChk = () =>{
         let arr = [{ 
-        ruleId: 'ths',
         fatal: false,
         actual: 'Ths',
         expected:
@@ -28,13 +27,8 @@ export default class ReplaceTxt extends Component {
     return arr;
     }
 
-     highlight(text, replace) {
+    replaceTxt(text, replace) {
          let { id, doc } = this.state;
-         text= `<span id="${id}" class="txt_sel toolTip">${text}</span>`;
-        console.log("doc", doc);
-        // if(doc.props.id){
-
-        // }
         let nodes= []
          doc.forEach((tag, index) =>{
             
@@ -49,10 +43,8 @@ export default class ReplaceTxt extends Component {
              else{
                 nodes[index] = tag;
              }
-         })
-
-         this.setState({doc:nodes, show:false})
-
+         });
+         this.setState({doc:nodes, show:false});
       }
 
       showBox = (id) =>{
@@ -64,22 +56,41 @@ export default class ReplaceTxt extends Component {
         this.setState({ show: true, x, y, id })
       }
 
-      getContent = (e) =>{
-        console.log(e.target.value)
+      getContent = ({currentTarget:div}) =>{
+        const txt = document.getElementById(div.id).textContent;
+        console.log(txt)
+        this.state.doc = txt;
       }
 
-      spellChk = () => {
-          const { doc } = this.state;
-        //   let chnageDom =  doc.split(' ').map((str, index) => {
-        //       let id = `t${index}`
-        //       return  <span> some <span id={id} onMouseOver={ ()=> this.showBox(id) } 
-        //                 className='txt_sel toolTip'>datas</span> is here </span>
-        //   })
-        let chnageDom =  ["some", <span id={'t0'} onMouseOver={ ()=> this.showBox('t0') } 
-        className='txt_sel toolTip'>datas</span> , `is here`,
-         <span id={'t1'} onMouseOver={ ()=> this.showBox('t1') } 
-        className='txt_sel toolTip'>myname</span>, <span>my name</span>]
-                        
+      spellChk = async () => {
+        let { doc } = this.state;
+        console.log("documents", doc);
+        let suggestions = await this.retextChk();
+        let chnageDom = [];
+        let splitWord = [];
+        try{
+         splitWord = doc.split(' ');
+        }
+        catch(error){
+            splitWord = doc
+        }
+        console.log('splitWord', splitWord)
+        splitWord.forEach((word, id) =>{
+            let error = false;
+            suggestions.forEach((suggestion) =>{
+                let actual = suggestion.actual;
+                if(actual == word){
+                    chnageDom.push(<span id={ `t${id}`} onMouseOver={ ()=> this.showBox(`t${id}`) } className='txt_sel toolTip'>{` ${word}`}</span>);
+                    error = true;
+                }
+            })
+            if(!error) chnageDom.push(` ${word}`)
+        })
+        //  chnageDom =  ["some", <span id={'t0'} onMouseOver={ ()=> this.showBox('t0') } 
+        // className='txt_sel toolTip'>datas</span> , `is here`,
+        //  <span id={'t1'} onMouseOver={ ()=> this.showBox('t1') } 
+        // className='txt_sel toolTip'>myname</span>, <span>my name</span>]
+            console.log(chnageDom)
           this.setState({ doc: chnageDom})
       }
 
@@ -91,26 +102,23 @@ export default class ReplaceTxt extends Component {
                 <button onClick={ () => this.spellChk() } className="btn btn-outline-primary">Spell check</button>
                 <br/><br/>
                 <div id="inputText" spellCheck={false}
-                    className='text-left area bg-white' contentEditable="true" onKeyDown={ this.getContent }
+                    className='text-left area bg-white' contentEditable="true" onKeyUp={ this.getContent }
                     placeholder="I look like a textarea" >
                         { doc }
-                                    </div>
+                </div>
 
 
-              
                 {
                     show && 
                 <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>
-                    <p onClick={() => this.highlight('datas', 'data')}
+                    <p onClick={() => this.replaceTxt('datas', 'data')}
                      className='p-2 m-0 select rounded-top'> data </p>
                     <p className='p-2 m-0 ignore rounded-bottom'> 
                     <i className="fa fa-trash-o" aria-hidden="true"></i>
                      Ignonre</p>
                 </div>
-            }
+               }
 
-                
-               
             </div>
         )
     }
