@@ -90,16 +90,14 @@ export default class ReplaceTxt extends Component {
                 <br/> <br/> 
                 <button onClick={ () => this.spellChk() } className="btn btn-outline-primary">Spell check</button>
                 <br/><br/>
-                <div id="inputText"
+                <div id="inputText" spellCheck={false}
                     className='text-left area bg-white' contentEditable="true" onKeyDown={ this.getContent }
                     placeholder="I look like a textarea" >
                         { doc }
                                     </div>
 
 
-                {/* <h1 id="inputText">  some <span id="t1" onMouseOver={ this.showBox } 
-                 className='txt_sel toolTip'>datas</span> is here  </h1> */}
-               
+              
                 {
                     show && 
                 <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>
