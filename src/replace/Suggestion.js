@@ -12,9 +12,16 @@ export default class Suggestion extends Component {
       };
      
       handleChange = evt => {
-        // console.log(evt.target.value)
-        this.setState({html: evt.target.value});
-        this.onSpellCheck();
+        let text = evt.target.value;
+        // this.setState({html: text});
+        this.state.html = text;
+        console.log(evt.target)
+        document.body.onkeyup = (e) => {
+          if(e.keyCode == 32){
+             this.onSpellCheck();
+          }
+      }
+     
       };
 
       retextChk = () =>{
@@ -74,10 +81,6 @@ export default class Suggestion extends Component {
         // console.log(replaceHtml)
         this.setState({ html: replaceHtml })
 
-        // if (index >= 0) { 
-        //  innerHTML = innerHTML.substring(0,index) +  model  + innerHTML.substring(index + text.length);
-        // this.setState({ html:innerHTML })
-        // }
 
       }
 
@@ -87,7 +90,7 @@ export default class Suggestion extends Component {
       //  document.getElementById('${id}').innerHTML = 'word'; 
       //  "> word </p>`
 
-     let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded-top' onclick="
+     let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded' onclick="
        document.getElementById('${id}').innerHTML = '${word}';">${word}</span>`)
 
        const contant = `<span id='${id}'> <span class="toolTip txt_sel">${text}
