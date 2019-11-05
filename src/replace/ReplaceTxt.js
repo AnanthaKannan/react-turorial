@@ -7,10 +7,11 @@ export default class ReplaceTxt extends Component {
         show:false,
         x:0,
         y:0,
-        doc:[],
+        doc:[ ],
         id:null,
         suggest:[],
-        childLength:0
+        childLength:0,
+        isEditable:true
     }
 
     componentDidMount(){
@@ -84,11 +85,12 @@ export default class ReplaceTxt extends Component {
 
       getContent = ({currentTarget:div}) =>{
         const txt = document.getElementById(div.id).textContent;
-        // this.state.doc = txt;
-        this.setState({doc: txt})
+        this.state.doc = txt;
+        // this.setState({doc: txt})
       }
 
       spellChk = async () => {
+        this.setState({isEditable: false})
         let { doc, childLength } = this.state;
         console.log("documents", doc);
         let suggestions = await this.retextChk();
@@ -107,7 +109,7 @@ export default class ReplaceTxt extends Component {
                 let actual = suggestion.actual;
                 if(actual == word && typeof(word) === 'string'){
 
-                    chnageDom.push(<span id={ `t${id}`} onMouseOver={ ()=> this.showBox(`t${id}`) } 
+                    chnageDom.push(<span key={`t${id}`} id={ `t${id}`} onMouseOver={ ()=> this.showBox(`t${id}`) } 
                                         className='txt_sel toolTip'>{ (word[0] == ' ') ? word : ` ${word}`}</span>);
                     error = true;
                 }
@@ -116,38 +118,43 @@ export default class ReplaceTxt extends Component {
             if(typeof(word) !== 'string')chnageDom.push(word);
         })
 
-        let filterData = chnageDom.filter((arrTxt) => {
-            if(typeof(arrTxt) == 'string')
-               return arrTxt.trim()
-            else return arrTxt
-       });
-            let length = filterData.length;
-            console.log("childLength",childLength, 'length', length)
-            if(childLength > length){
-                let diff = childLength - length;
-                alert(diff)
-                Array(diff + 3).fill('').forEach((val) =>{
-                    filterData.push(val);
-                })
-            }
+    //     let filterData = chnageDom.filter((arrTxt) => {
+    //         if(typeof(arrTxt) == 'string')
+    //            return arrTxt.trim()
+    //         else return arrTxt
+    //    });
+    //         let length = filterData.length;
+    //         console.log("childLength",childLength, 'length', length)
+    //         if(childLength > length){
+    //             let diff = childLength - length;
+    //             alert(diff)
+    //             Array(diff + 3).fill('').forEach((val) =>{
+    //                 filterData.push(val);
+    //             })
+    //         }
         
-          console.log(chnageDom, filterData)
-          this.setState({ doc: filterData, childLength: filterData.length})
+        //   console.log(chnageDom, filterData)
+          this.setState({ doc: chnageDom})
+          this.setState({isEditable: true})
       }
 
     render() {
-        const { show, x, y, doc, suggest } = this.state;
+        const { show, x, y, doc, suggest, isEditable } = this.state;
         return (
             <div className="container">
                 <br/> <br/> 
                 <button onClick={ () => this.spellChk() } className="btn btn-outline-primary">Spell check</button>
                 <br/><br/>
                 <div id="inputText" spellCheck={false}
-                    className='text-left area bg-white' contentEditable="true" onKeyUp={ this.getContent }
+                    className='text-left area bg-white' contentEditable={isEditable}  onKeyUp={ this.getContent }
                     placeholder="I look like a textarea" >
-                        { doc }
+                     
+                            { doc }
+                      
+                    
                 </div>
 
+     
                 {
                     show && 
                 <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>

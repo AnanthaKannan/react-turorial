@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import './App.css';
 import Websoket from './websoket/websoket';
 import ReplaceTxt from './replace/ReplaceTxt';
+import Suggestion from './replace/Suggestion';
 // import ClassClick from './component/ClassClick';
 // import FunctionClick from './component/FunctionClick';
 // import EventBinding from './component/EventBinding';
@@ -44,6 +45,7 @@ function App() {
 
   return (
     <div className="App" >
+      {/* <Suggestion /> */}
     <ReplaceTxt />
     {/* <Websoket /> */}
     {/* <ConponentUnmount /> */}
