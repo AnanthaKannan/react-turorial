@@ -14,6 +14,7 @@ export default class Suggestion extends Component {
       handleChange = evt => {
         // console.log(evt.target.value)
         this.setState({html: evt.target.value});
+        this.onSpellCheck();
       };
 
       retextChk = () =>{
@@ -33,26 +34,7 @@ export default class Suggestion extends Component {
         // return arr;
     }
 
-      // onSpellCheck = () =>{
-      //   const contant = `<span id="t1" class="toolTip">Hover over me
-      //   <div class="suggest rounded tooltiptext" >
-      //       <p class='p-2 m-0 select rounded-top' onclick="document.getElementById('t1').innerHTML = 'word'"> word </p>
-      //       <p class='p-2 m-0 ignore rounded-bottom'> 
-      //       <i class="fa fa-trash-o" aria-hidden="true"></i>
-      //       Ignonre</p>
-      //   </div>
-      //       </span>`
-      // }
 
-      // function highlight(text) {
-      //   var inputText = document.getElementById("inputText");
-      //   var innerHTML = inputText.innerHTML;
-      //   var index = innerHTML.indexOf(text);
-      //   if (index >= 0) { 
-      //    innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-      //    inputText.innerHTML = innerHTML;
-      //   }
-      // }
       
       errorChk = (word) =>{
         let { suggestion } = this.state;
@@ -106,8 +88,7 @@ export default class Suggestion extends Component {
       //  "> word </p>`
 
      let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded-top' onclick="
-       document.getElementById('${id}').innerHTML = '${word}'; 
-       "> ${word} </span>`)
+       document.getElementById('${id}').innerHTML = '${word}';">${word}</span>`)
 
        const contant = `<span id='${id}'> <span class="toolTip txt_sel">${text}
         <div class="suggest rounded tooltiptext" >
