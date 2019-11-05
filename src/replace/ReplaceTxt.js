@@ -7,11 +7,12 @@ export default class ReplaceTxt extends Component {
         show:false,
         x:0,
         y:0,
-        doc:[ ],
+        doc:null,
         id:null,
         suggest:[],
         childLength:0,
-        isEditable:true
+        isEditable:true,
+        value:'some contant is hee'
     }
 
     componentDidMount(){
@@ -85,8 +86,9 @@ export default class ReplaceTxt extends Component {
 
       getContent = ({currentTarget:div}) =>{
         const txt = document.getElementById(div.id).textContent;
-        this.state.doc = txt;
-        // this.setState({doc: txt})
+        // this.state.doc = txt;
+        this.setState({doc: txt.reverse()})
+        console.log(document.getElementById(div.id));
       }
 
       spellChk = async () => {
@@ -138,6 +140,10 @@ export default class ReplaceTxt extends Component {
           this.setState({isEditable: true})
       }
 
+      onHandleChange = (e) =>{
+        console.log("ee")
+      }
+
     render() {
         const { show, x, y, doc, suggest, isEditable } = this.state;
         return (
@@ -145,14 +151,25 @@ export default class ReplaceTxt extends Component {
                 <br/> <br/> 
                 <button onClick={ () => this.spellChk() } className="btn btn-outline-primary">Spell check</button>
                 <br/><br/>
-                <div id="inputText" spellCheck={false}
-                    className='text-left area bg-white' contentEditable={isEditable}  onKeyUp={ this.getContent }
+                {/* <div id="inputText" spellCheck={false}
+                    className='text-left area bg-white' contentEditable={true}  onKeyUp={ this.getContent }
                     placeholder="I look like a textarea" >
                      
                             { doc }
                       
                     
-                </div>
+                </div> */}
+
+<button className="btn btn-outline-primary">Check</button>
+
+<div  contentEditable="true" suppressContentEditableWarning={true}
+        className="text-left area bg-white"  placeholder="I look like a textarea"
+        onInput={ (e) => {
+            console.log(e.target.textContent);
+            this.setState({doc: e.target.textContent})
+        }}
+> {doc} </div>
+
 
      
                 {
