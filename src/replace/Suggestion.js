@@ -15,7 +15,6 @@ export default class Suggestion extends Component {
         let text = evt.target.value;
         // this.setState({html: text});
         this.state.html = text;
-        console.log(evt.target)
         document.body.onkeyup = (e) => {
           if(e.keyCode == 32){
              this.onSpellCheck();
@@ -25,6 +24,9 @@ export default class Suggestion extends Component {
       };
 
       retextChk = () =>{
+        let { html } = this.state;
+        let string = html.replace(/<[^>]*>?/gm, '');
+        console.log(string)
         let arr = [{ 
         fatal: false,
         actual: 'Ths',
