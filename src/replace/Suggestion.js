@@ -6,12 +6,13 @@ export default class Suggestion extends Component {
         super()
         this.contentEditable = React.createRef();
         this.state = {
-            html:''
+            html:'',
+            suggestion:[]
         };
       };
      
       handleChange = evt => {
-        console.log(evt.target.value)
+        // console.log(evt.target.value)
         this.setState({html: evt.target.value});
       };
 
@@ -22,8 +23,14 @@ export default class Suggestion extends Component {
         expected:
          [ 'ohs', "T'S", "TH'S", 'Tbs','Th','The','This','Tho',
            'Thu', 'Thus','Thy','Ts','DHS','HHS','HS','HTS','THC', 'VHS' 
-        ] }]
-        return arr;
+        ] },
+        { 
+          fatal: false,
+          actual: 'hello',
+          expected:
+           [ 'hello', 'hai' ] }];
+           this.state.suggestion = arr;
+        // return arr;
     }
 
       // onSpellCheck = () =>{
@@ -47,27 +54,69 @@ export default class Suggestion extends Component {
       //   }
       // }
       
+      errorChk = (word) =>{
+        let { suggestion } = this.state;
+        let retData = { status: false }
+        suggestion.forEach((obj) =>{
+          let actual = obj.actual;
+          if(actual == word){
+             retData = obj;
+            obj.status = true;
+          }
+        })
 
-      onSpellCheck =  (text = "hello") => {
-        const { html } = this.state;
-        let innerHTML = html;
-        let model =  this.boxCreated(text);
-        var index = innerHTML.indexOf(text);
-        if (index >= 0) { 
-         innerHTML = innerHTML.substring(0,index) +  model  + innerHTML.substring(index + text.length);
-        this.setState({ html:innerHTML })
-        }
+        return retData
       }
 
-      boxCreated = (text) =>{
-   
-       const contant = `<span id="t1" class="toolTip txt_sel">${text}
+      onSpellCheck = async() => {
+        await this.retextChk();
+        const { html } = this.state;
+        const id = 't1'
+        let innerHTML = html;
+        let replaceHtml = ""
+    
+        let split = innerHTML.split(' ');
+        split = split.filter(word => word);
+        console.log(split);
+        split.forEach((word, index) =>{
+          let res = this.errorChk(word);
+          if(res.status){
+            let text = res.actual;
+            let expected = res.expected;
+            replaceHtml += ' ' + this.boxCreated(text, `t${index}`, expected);
+          }
+          else{
+          replaceHtml += ' ' + word;
+          }
+        })
+        // console.log(replaceHtml)
+        this.setState({ html: replaceHtml })
+
+        // if (index >= 0) { 
+        //  innerHTML = innerHTML.substring(0,index) +  model  + innerHTML.substring(index + text.length);
+        // this.setState({ html:innerHTML })
+        // }
+
+      }
+
+      boxCreated = (text, id, expected) =>{
+
+      //  let suggestList = `<p class='p-2 m-0 select rounded-top' onclick="
+      //  document.getElementById('${id}').innerHTML = 'word'; 
+      //  "> word </p>`
+
+     let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded-top' onclick="
+       document.getElementById('${id}').innerHTML = '${word}'; 
+       "> ${word} </span>`)
+
+       const contant = `<span id='${id}'> <span class="toolTip txt_sel">${text}
         <div class="suggest rounded tooltiptext" >
-            <p class='p-2 m-0 select rounded-top' onclick=" document.getElementById('t1').innerHTML = 'word'"> word </p>
+            ${suggestList}
             <p class='p-2 m-0 ignore rounded-bottom'> 
             <i class="fa fa-trash-o" aria-hidden="true"></i>
             Ignonre</p>
         </div>
+            </span>
             </span>`
         return contant;
       }
