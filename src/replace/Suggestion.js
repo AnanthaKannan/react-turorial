@@ -12,9 +12,7 @@ export default class Suggestion extends Component {
       };
      
       componentDidMount(){
-      let hello = document.getElementsByClassName("hello");
-        console.log("hello", hello);
-        hello[0].remove();
+        
       }
 
       handleChange = evt => {
@@ -22,11 +20,25 @@ export default class Suggestion extends Component {
         // this.setState({html: text});
         this.state.html = text;
         document.body.onkeyup = (e) => {
-          if(e.keyCode == 32){
+          let key = e.keyCode;
+          if(key == 32){
              this.onSpellCheck();
+          }
+          if(key == 8 || key == 46){
+              this.removeError();
           }
       }
       };
+
+      removeError = () =>{
+        let focused = document.activeElement;
+        console.log('focused', focused);
+        // console.log("delted")
+        // let res = document.getSelection()
+        // console.log(res.baseNode)
+        // let allId = document.querySelectorAll('*[id]');
+        // console.log('allId', allId)
+      }
 
       removeSuggesionFromTxt = () =>{
         let node = document.getElementById('text_content'),
@@ -107,12 +119,9 @@ export default class Suggestion extends Component {
       boxCreated = (text, id, expected) =>{
 
      let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded' 
-     onclick="
-     document.getElementById('${id}').innerHTML = '${word}';
-     alert();"
-     >${word}</span>`)
+     onclick="currection('${id}', '${word}')">${word}</span>`)
 
-       const contant = `<span id='${id}'> <span class="toolTip txt_sel">${text}
+       const contant = ` <span class="toolTip txt_sel" id='${id}'>${text} 
         <div class="suggest rounded tooltiptext" >
         <span class='d-none'>_start_</span>
             ${suggestList}
@@ -121,7 +130,6 @@ export default class Suggestion extends Component {
             Ignonre</p>
             <span class='d-none'>_end_</span>
         </div>
-            </span>
             </span>`
         return contant;
       }
@@ -144,13 +152,12 @@ export default class Suggestion extends Component {
       render(){
           return(
               <div className="container">
-              <h1 id="hello" className="hello">hello</h1>
                   <br/>
                   <button className="btn btn-outline-primary" onClick={()=> this.onSpellCheck()} >spellCheck</button>
                   <div>
                 <EditButton cmd="italic" />
                 <EditButton cmd="bold" />
-                <EditButton cmd="formatBlock" arg="h6" name="heading" />
+                <EditButton cmd="formatBlock" arg="h1" name="heading" />
                 <EditButton
                   cmd="createLink"
                   arg="https://github.com/lovasoa/react-contenteditable"
@@ -167,6 +174,7 @@ export default class Suggestion extends Component {
                   onChange={this.handleChange} // handle innerHTML change
                   tagName='div' // Use a custom HTML tag (uses a div by default)
                   onClick={this.chk}
+                  
                 />
               </div>
                 <div>

@@ -55,7 +55,7 @@
   .toolTip {
     position: relative;
     display: inline-block;
-    z-index: 100;
+    /* z-index: 100; */
   }
   
   /* Tooltip text */
