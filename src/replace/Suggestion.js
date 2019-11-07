@@ -11,6 +11,12 @@ export default class Suggestion extends Component {
         };
       };
      
+      componentDidMount(){
+      let hello = document.getElementsByClassName("hello");
+        console.log("hello", hello);
+        hello[0].remove();
+      }
+
       handleChange = evt => {
         let text = evt.target.value;
         // this.setState({html: text});
@@ -20,27 +26,41 @@ export default class Suggestion extends Component {
              this.onSpellCheck();
           }
       }
-     
       };
 
-      retextChk = () =>{
-        let { html } = this.state;
-        let string = html.replace(/<[^>]*>?/gm, '');
+      removeSuggesionFromTxt = () =>{
+        let node = document.getElementById('text_content'),
+        htmlContent = node.innerHTML,
+        textContent = node.textContent;
+        let split = textContent.split(' ');
+        let content = "";
+        let add = true
+        split.map((text) =>{
+          if(text.includes('_start_')) add = false
+          if(add) content += ` ${text}`;
+          if(text.includes('_end_')) add = true
+        })
+        let string = content.replace(/\s\s+/g, ' '); 
         console.log(string)
-        let arr = [{ 
-        fatal: false,
-        actual: 'Ths',
-        expected:
-         [ 'ohs', "T'S", "TH'S", 'Tbs','Th','The','This','Tho',
-           'Thu', 'Thus','Thy','Ts','DHS','HHS','HS','HTS','THC', 'VHS' 
-        ] },
-        { 
-          fatal: false,
-          actual: 'hello',
-          expected:
-           [ 'hello', 'hai' ] }];
+        return string;
+      }
+
+      retextChk = async() =>{
+        let arr = await this.callBackend(this.removeSuggesionFromTxt());
+        // console.log("array", arr)
+        // let arr = [{ 
+        // fatal: false,
+        // actual: 'Ths',
+        // expected:
+        //  [ 'ohs', "T'S", "TH'S", 'Tbs','Th','The','This','Tho',
+        //    'Thu', 'Thus','Thy','Ts','DHS','HHS','HS','HTS','THC', 'VHS' 
+        // ] },
+        // { 
+        //   fatal: false,
+        //   actual: 'hello',
+        //   expected:
+        //    [ 'hello', 'hai' ] }];
            this.state.suggestion = arr;
-        // return arr;
     }
 
 
@@ -54,12 +74,12 @@ export default class Suggestion extends Component {
              retData = obj;
             obj.status = true;
           }
-        })
-
+        });
         return retData
       }
 
       onSpellCheck = async() => {
+
         await this.retextChk();
         const { html } = this.state;
         const id = 't1'
@@ -82,38 +102,49 @@ export default class Suggestion extends Component {
         })
         // console.log(replaceHtml)
         this.setState({ html: replaceHtml })
-
-
       }
 
       boxCreated = (text, id, expected) =>{
 
-      //  let suggestList = `<p class='p-2 m-0 select rounded-top' onclick="
-      //  document.getElementById('${id}').innerHTML = 'word'; 
-      //  "> word </p>`
-
-     let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded' onclick="
-       document.getElementById('${id}').innerHTML = '${word}';">${word}</span>`)
+     let suggestList =  expected.map((word) => `<span class='p-2 m-0 select rounded' 
+     onclick="
+     document.getElementById('${id}').innerHTML = '${word}';
+     alert();"
+     >${word}</span>`)
 
        const contant = `<span id='${id}'> <span class="toolTip txt_sel">${text}
         <div class="suggest rounded tooltiptext" >
+        <span class='d-none'>_start_</span>
             ${suggestList}
             <p class='p-2 m-0 ignore rounded-bottom'> 
             <i class="fa fa-trash-o" aria-hidden="true"></i>
             Ignonre</p>
+            <span class='d-none'>_end_</span>
         </div>
             </span>
             </span>`
         return contant;
       }
       
+      callBackend = async(content) =>{
+     
+       let res = await fetch('http://localhost:4000/spellCheck', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({content})
+        });
+       
+        res = await res.json();
+        console.log('myResult', res);
+        return res;
+      }
+
       render(){
           return(
               <div className="container">
-                
-            
-
-
+              <h1 id="hello" className="hello">hello</h1>
                   <br/>
                   <button className="btn btn-outline-primary" onClick={()=> this.onSpellCheck()} >spellCheck</button>
                   <div>
@@ -127,6 +158,7 @@ export default class Suggestion extends Component {
                 />
                 </div>
                 <br/>
+                <div id="text_content">
                   <ContentEditable className='area text-left'
                   innerRef={this.contentEditable}
                   spellCheck={false}
@@ -136,7 +168,7 @@ export default class Suggestion extends Component {
                   tagName='div' // Use a custom HTML tag (uses a div by default)
                   onClick={this.chk}
                 />
-
+              </div>
                 <div>
                 <h4>source</h4>
                   <textarea 
