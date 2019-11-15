@@ -44,7 +44,10 @@ export default class DraftEditor extends Component {
       }
 
        generateDecorator = (highlightTerm) => {
-        const regex = new RegExp(highlightTerm, 'g');
+        // const regex = new RegExp(`\b(some)\b`, 'g');
+        // const pattern = /\b(some)\b/g;
+        const pattern = `\\b(${highlightTerm})\\b`;
+        const regex = new RegExp(pattern,"g");
         return new CompositeDecorator([{
           strategy: (contentBlock, callback) => {
             //   console.log(contentBlock)
