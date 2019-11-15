@@ -3,7 +3,7 @@ import './App.css';
 import Websoket from './websoket/websoket';
 import ReplaceTxt from './replace/ReplaceTxt';
 import Suggestion from './replace/Suggestion';
-import ReactQuill from './replace/ReactQuill';
+import DraftEditor from './replace/DraftEditor';
 // import ClassClick from './component/ClassClick';
 // import FunctionClick from './component/FunctionClick';
 // import EventBinding from './component/EventBinding';
@@ -46,8 +46,8 @@ function App() {
 
   return (
     <div className="App" >
-      {/* <ReactQuill /> */}
-      <Suggestion />
+      <DraftEditor />
+      {/* <Suggestion /> */}
     {/* <ReplaceTxt /> */}
     {/* <Websoket /> */}
     {/* <ConponentUnmount /> */}
