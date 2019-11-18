@@ -4,6 +4,7 @@ import Websoket from './websoket/websoket';
 import ReplaceTxt from './replace/ReplaceTxt';
 import Suggestion from './replace/Suggestion';
 import DraftEditor from './replace/DraftEditor';
+import Draftfn from './replace/draftfn';
 // import ClassClick from './component/ClassClick';
 // import FunctionClick from './component/FunctionClick';
 // import EventBinding from './component/EventBinding';

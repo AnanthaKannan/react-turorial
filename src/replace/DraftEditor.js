@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
-import { EditorState, Editor, CompositeDecorator, SelectionState, Modifier } from 'draft-js';
+import { EditorState, CompositeDecorator, SelectionState, Modifier, RichUtils } from 'draft-js';
+import Editor, {createEditorStateWithText } from 'draft-js-plugins-editor';
+import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
+import createCounterPlugin from 'draft-js-counter-plugin';
+
+import 'draft-js-static-toolbar-plugin/lib/plugin.css';
 import './draft.css'
+import DraftBtn from './DraftBtn';
+
+
+const staticToolbarPlugin = createToolbarPlugin();
+const { Toolbar } = staticToolbarPlugin;
+const counterPlugin = createCounterPlugin();
+const { CharCounter, WordCounter, LineCounter, CustomCounter } = counterPlugin;
+const plugins = [counterPlugin, staticToolbarPlugin];
 
 export default class DraftEditor extends Component {
 
@@ -146,19 +159,59 @@ export default class DraftEditor extends Component {
         }
       };
 
+      handleKeyCommand = (command) => {
+        const newState = RichUtils.handleKeyCommand(this.state.editorState, command)
+        if (newState) {
+            this.onChange(newState);
+            return 'handled';
+        }
+        return 'not-handled';
+    }
+
+ 
+
+    focus = () => this.editor.focus();
 
     render() {
       const { show, x, y, suggesion, ignore } = this.state;
         return (
             <div className="container">
                 <h3>daraftjs</h3>
-                <div>
+                <br/>
+        
+                      <Toolbar />
+
+                <div className="editor mt-2" onClick={this.focus}>
         <Editor
-        placeholder="Type here"
+        ref={(element) => { this.editor = element; }}
           editorState={this.state.editorState}
           onChange={this.onChange}
+          handleKeyCommand={this.handleKeyCommand}  
+          plugins={plugins}
         />
-        <div className="search-and-replace">
+
+</div>
+      <div className="d-flex identify">
+      <div> Char <CharCounter limit={200} /> </div>
+        <div> words <WordCounter limit={30} /> </div>
+        <div>Line<LineCounter limit={10} /> </div>
+      </div>
+
+<br/>
+        <div>
+
+        {
+                    show && 
+                <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>
+                    { suggesion }
+                    { ignore }
+                    {/* <p className='p-2 m-0 ignore rounded-bottom'><i className="fa fa-trash-o" aria-hidden="true"></i>ignore</p> */}
+                </div>
+               }
+      </div>
+
+
+      <div className="search-and-replace">
           <input
             value={this.state.search}
             onChange={this.onChangeSearch}
@@ -174,15 +227,6 @@ export default class DraftEditor extends Component {
           </button>
         </div>
 
-        {
-                    show && 
-                <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>
-                    { suggesion }
-                    { ignore }
-                    {/* <p className='p-2 m-0 ignore rounded-bottom'><i className="fa fa-trash-o" aria-hidden="true"></i>ignore</p> */}
-                </div>
-               }
-      </div>
             </div>
         )
     }

@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
+    "dependency": "0.0.1",
     "dictionary-en-gb": "^2.1.1",
     "draft-js": "^0.11.2",
+    "draft-js-counter-plugin": "^2.0.2",
+    "draft-js-plugins-editor": "^3.0.0",
+    "draft-js-static-toolbar-plugin": "^3.0.1",
     "quill-delta": "^4.2.1",
     "react": "^16.10.2",
     "react-contenteditable": "^3.3.2",
@@ -39,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0"
   }
 }
