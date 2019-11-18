@@ -18,6 +18,15 @@ async function spellCheck(_this, text){
     // return response;
 }
 
+async function passiveVoice(_this, text){
+    let response = [ {actual: "is hit", pgm: 'passive', expected:[]},
+     {  actual: "is filled", pgm: 'passive', expected:[]} ];
+     let { allSuggesion } = _this.state;
+     let saveAllSug = response.concat(allSuggesion);
+     _this.state.allSuggesion = saveAllSug 
+}
+
 export {
-    spellCheck
+    spellCheck,
+    passiveVoice
 }

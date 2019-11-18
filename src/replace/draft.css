@@ -6,6 +6,24 @@
     color: green;
 }
 
+.passive{
+    background-color:#c4ed9d;
+    transition-property: background-color;
+    transition-duration: 0.5s; 
+    transition-timing-function: ease;
+    transition-delay: 0s;
+}
+
+.spell-mistake{
+    border-bottom: solid 3px red;
+}
+
+.spell-mistake:hover{
+    background-color:rgba(197, 161, 255, 0.8);
+    transition-property: background-color;
+    transition-duration: 1s;   
+}
+
 .suggest{
     width: 15%;
     text-align: left;

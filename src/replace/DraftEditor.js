@@ -8,7 +8,7 @@ import createCounterPlugin from 'draft-js-counter-plugin';
 import 'draft-js-static-toolbar-plugin/lib/plugin.css';
 import './draft.css'
 import DraftBtn from './DraftBtn';
-import { spellCheck } from './draftApi';
+import { spellCheck, passiveVoice } from './draftApi';
 
 
 const staticToolbarPlugin = createToolbarPlugin();
@@ -39,10 +39,14 @@ export default class DraftEditor extends Component {
       // spellCheck()
       document.body.onkeyup = e => {
         let key = e.keyCode;
+        if(key == 190){
+          passiveVoice(this, this.getCurrentPara());
+        }
         if (key == 32 || key == 190) {
           spellCheck(this, this.getCurrentPara());
           this.onSearch();
         }
+       
     }
     }
 
@@ -56,15 +60,19 @@ export default class DraftEditor extends Component {
       return selectedText;
     }
 
-    onSearch = async(e) => {
+    passiveVoiceFilter = () =>{
+      let passiveVoices =  passiveVoice(this, this.getCurrentPara());
+      let { editorState} = this.state;
+      this.setState({
+        editorState: EditorState.set(editorState, { decorator:  this.passiveDecorator('allSuggesion') })
+      });
+    }
+
+    onSearch = (e) => {
       let { editorState, allSuggesion } = this.state;
-      // let suggesion_res = await spellCheck(this.getCurrentPara());
-      // let saveAllSug = suggesion_res.concat(allSuggesion)
-      // if(suggesion_res.length > 0){
         this.setState({
           editorState: EditorState.set(editorState, { decorator:  this.generateDecorator(allSuggesion) })
         });
-      // }
       }
     
       onChangeReplace = (e) => {
@@ -153,6 +161,20 @@ export default class DraftEditor extends Component {
         });
     }
 
+    passiveDecorator = (highlightTerm) =>{
+      highlightTerm = 'is hit|is filled';
+      const pattern = `\\b(${highlightTerm})\\b`;
+      const regex = new RegExp(pattern,"g");
+      return new CompositeDecorator([{
+        strategy: (contentBlock, callback) => {
+          if (highlightTerm !== '') {
+            this.findWithRegex(regex, contentBlock, callback);
+          }
+        },
+        component: (props) =>   <span className="passive">{props.children}</span>,
+      }])
+    }
+
        generateDecorator = (suggesion_res) => {
      
         let actual = suggesion_res.map((obj) => obj.actual)
@@ -188,10 +210,15 @@ export default class DraftEditor extends Component {
           suggest = actual[0].expected;
         }
         console.log('actual', actual, 'text', text);
+        if(actual[0].pgm && actual[0].pgm == 'passive'){
+        return <span className="passive">{props.children}</span>
+        }
+        
+
         return ( <span 
             onMouseEnter={(e)=>this.mouseEnter(props.blockKey, props.start, props.end, suggest, e)}
             onMouseLeave={this.onLeave}
-             className="error mode">{props.children}
+             className="spell-mistake">{props.children}
         </span>);
       };
 
