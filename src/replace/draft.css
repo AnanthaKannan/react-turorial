@@ -6,6 +6,14 @@
     color: green;
 }
 
+.suggest{
+    width: 15%;
+    text-align: left;
+    background-color: white;
+    box-shadow: 1px 1px 5px gray;
+    position: absolute;
+}
+
 .btnFont{
     background-color: transparent;
     border: none;
@@ -45,31 +53,3 @@
   }
 
 
-.toolTip {
-    position: relative;
-    display: inline-block;
-    /* z-index: 100; */
-  }
-  
-  /* Tooltip text */
-.toolTip .tooltiptext {
-    visibility: hidden;
-    width: 150px;
-    /* background-color: black; */
-    color: #fff;
-    text-align: left;
-    /* padding: 5px 0; */
-    border-radius: 6px;
-
-    /* Position the tooltip text - see examples below! */
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    left: 50%;
-    margin-left: -60px;
-}
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .toolTip:hover .tooltiptext {
-    visibility: visible;
-  }

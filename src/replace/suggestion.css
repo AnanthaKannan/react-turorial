@@ -15,8 +15,7 @@
     background-color: white;
     box-shadow: 1px 1px 5px gray;
     position: absolute;
-    /* left: calc(551px - 10%);
-    top:52px; */
+    margin-left: -60px;
 }
 
 .select{
@@ -47,10 +46,7 @@
     background-color: yellow;
   }
 
-
-
-
-
+  
 
   .toolTip {
     position: relative;

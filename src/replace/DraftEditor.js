@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { EditorState, CompositeDecorator, SelectionState, Modifier, RichUtils } from 'draft-js';
 import Editor, {createEditorStateWithText } from 'draft-js-plugins-editor';
 import createToolbarPlugin from 'draft-js-static-toolbar-plugin';
@@ -7,6 +8,7 @@ import createCounterPlugin from 'draft-js-counter-plugin';
 import 'draft-js-static-toolbar-plugin/lib/plugin.css';
 import './draft.css'
 import DraftBtn from './DraftBtn';
+import { spellCheck } from './draftApi';
 
 
 const staticToolbarPlugin = createToolbarPlugin();
@@ -24,23 +26,45 @@ export default class DraftEditor extends Component {
           replace: '',
           editorState: EditorState.createEmpty(),
           show:false,
+          inside:false,
           x:0,
           y:0,
           suggesion:[],
-          ignore:null
+          ignore:null,
+          allSuggesion:[]
         }
       }
 
     componentDidMount(){
-      this.fatalResponse();
+      // spellCheck()
+      document.body.onkeyup = e => {
+        let key = e.keyCode;
+        if (key == 32 || key == 190) {
+          spellCheck(this, this.getCurrentPara());
+          this.onSearch();
+        }
+    }
     }
 
-    onChangeSearch = (e) => {
-        const search = e.target.value;
+    getCurrentPara = () =>{
+      let { editorState } = this.state;
+      let selectionState = editorState.getSelection();
+      let anchorKey = selectionState.getAnchorKey();
+      let currentContent = editorState.getCurrentContent();
+      let currentContentBlock = currentContent.getBlockForKey(anchorKey);
+      let selectedText = currentContentBlock.getText()
+      return selectedText;
+    }
+
+    onSearch = async(e) => {
+      let { editorState, allSuggesion } = this.state;
+      // let suggesion_res = await spellCheck(this.getCurrentPara());
+      // let saveAllSug = suggesion_res.concat(allSuggesion)
+      // if(suggesion_res.length > 0){
         this.setState({
-          search,
-          editorState: EditorState.set(this.state.editorState, { decorator: this.generateDecorator(search) }),
+          editorState: EditorState.set(editorState, { decorator:  this.generateDecorator(allSuggesion) })
         });
+      // }
       }
     
       onChangeReplace = (e) => {
@@ -49,7 +73,8 @@ export default class DraftEditor extends Component {
         });
       }
 
-      fatalResponse = () =>{
+      fatalResponse = (text) =>{
+        console.log(text)
         let result = [{
           fatal: false,
           actual: 'Ths',
@@ -92,36 +117,47 @@ export default class DraftEditor extends Component {
           editorState: EditorState.push(
             editorState,
             contentState,
-          )
+          ),
+          show:false,
+          inside:false,
         })
       }
 
       mouseEnter = (blockKey, start, end, suggesion, element) =>{
         console.log(blockKey, start, end, suggesion);
-        const x = element.clientX;
-        const y = element.pageY;
+      
+
+        var ele = element.target
+        var rect = ele.getBoundingClientRect();
+        console.log('element', rect)
+        const x = rect.left;
+        const y = rect.bottom;
+        console.log("x", x, 'y', y)
         let suggest = [];
         suggesion.map((SuggestWord) =>{
-          suggest.push(<span key={SuggestWord} onClick={() => this.onReplace(blockKey, start, end, SuggestWord)} className='p-2 m-0 select rounded-top'> { SuggestWord } </span>)
+          suggest.push(<span key={SuggestWord} onClick={() => this.onReplace(blockKey, start, end, SuggestWord)} className='p-2 m-0 select rounded-top'> { SuggestWord }  </span>)
         })
         const ignore = <p onClick={()=> this.ignore_(start, end, 'text')} className='p-2 m-0 ignore rounded-bottom'><i className="fa fa-trash-o" aria-hidden="true"></i>ignore</p>
         this.setState({show: true, x, y, suggesion:suggest, ignore})
       }
 
       ignore_ = (start, end, text) =>{
-        this.setState({
-          editorState: EditorState.set(this.state.editorState, { decorator: this.generateDecorator(text) }),
-        });
+        // this.setState({
+        //   editorState: EditorState.set(this.state.editorState, { decorator: this.generateDecorator(text) }),
+        // });
       }
 
       onChange = (editorState) => {
         this.setState({
           editorState,
         });
-      }
+    }
 
-       generateDecorator = (highlightTerm) => {
-        let suggesion_res = this.fatalResponse();
+       generateDecorator = (suggesion_res) => {
+     
+        let actual = suggesion_res.map((obj) => obj.actual)
+        let highlightTerm = actual.toString().replace(/,/g, '|');
+        console.log('highlightTerm', highlightTerm)
         const pattern = `\\b(${highlightTerm})\\b`;
         const regex = new RegExp(pattern,"g");
         return new CompositeDecorator([{
@@ -134,8 +170,17 @@ export default class DraftEditor extends Component {
         }])
       };
 
+      onLeave = () =>{
+        setTimeout(() => {
+          if(!this.state.inside){
+            this.setState({show:false})
+          }
+        }, 100);
+        console.log("inside")
+      }
+
       SearchHighlight = (props, suggesion_res) => {
-        console.log("props", props)
+        // console.log("props", props)
         let suggest = [];
         const text = props.children[0].props.text;
         let actual = suggesion_res.filter((obj) => obj.actual.toLowerCase() == text.toLowerCase());
@@ -143,14 +188,18 @@ export default class DraftEditor extends Component {
           suggest = actual[0].expected;
         }
         console.log('actual', actual, 'text', text);
-        return ( <span onMouseEnter={(e)=>this.mouseEnter(props.blockKey, props.start, props.end, suggest, e)} className="error">{props.children}
+        return ( <span 
+            onMouseEnter={(e)=>this.mouseEnter(props.blockKey, props.start, props.end, suggest, e)}
+            onMouseLeave={this.onLeave}
+             className="error mode">{props.children}
         </span>);
       };
 
 
        findWithRegex = (regex, contentBlock, callback) => {
+        //  console.log("findWithRegex")
         const text = contentBlock.getText();
-        console.log(text)
+        // console.log(contentBlock)
         let matchArr, start, end;
         while ((matchArr = regex.exec(text)) !== null) {
           start = matchArr.index;
@@ -173,7 +222,7 @@ export default class DraftEditor extends Component {
     focus = () => this.editor.focus();
 
     render() {
-      const { show, x, y, suggesion, ignore } = this.state;
+      const { show, x, y, suggesion, ignore, inside } = this.state;
         return (
             <div className="container">
                 <h3>daraftjs</h3>
@@ -183,7 +232,7 @@ export default class DraftEditor extends Component {
 
                 <div className="editor mt-2" onClick={this.focus}>
         <Editor
-        ref={(element) => { this.editor = element; }}
+          ref={(element) => { this.editor = element; }}
           editorState={this.state.editorState}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}  
@@ -198,20 +247,21 @@ export default class DraftEditor extends Component {
       </div>
 
 <br/>
-        <div>
+        <div >
 
         {
-                    show && 
-                <div className="suggest rounded" style={{left: x, top:y }} onMouseLeave={() => this.setState({show:false})}>
+                show &&
+                <div className="suggest rounded hov" style={{left: x, top:y }} onMouseEnter={()=> this.setState({inside:true})}
+                 onMouseLeave={() => this.setState({show:false, inside: false})}>
                     { suggesion }
-                    { ignore }
+                    { ignore } 
                     {/* <p className='p-2 m-0 ignore rounded-bottom'><i className="fa fa-trash-o" aria-hidden="true"></i>ignore</p> */}
                 </div>
                }
       </div>
 
 
-      <div className="search-and-replace">
+      {/* <div className="search-and-replace">
           <input
             value={this.state.search}
             onChange={this.onChangeSearch}
@@ -225,7 +275,7 @@ export default class DraftEditor extends Component {
           <button onClick={this.onReplace}>
             Replace
           </button>
-        </div>
+        </div> */}
 
             </div>
         )

@@ -12,7 +12,8 @@ export default class ReplaceTxt extends Component {
         suggest:[],
         childLength:0,
         isEditable:true,
-        value:'some contant is hee'
+        value:'some contant is hee',
+        span: <span>hellodata </span>
     }
 
     componentDidMount(){
@@ -143,6 +144,8 @@ export default class ReplaceTxt extends Component {
       onHandleChange = (e) =>{
         console.log("ee")
       }
+
+
 
     render() {
         const { show, x, y, doc, suggest, isEditable } = this.state;
