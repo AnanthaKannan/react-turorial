@@ -26,6 +26,7 @@ export default class DraftEditor extends Component {
           replace: '',
           editorState: EditorState.createEmpty(),
           show:false,
+          passiveShow: false,
           inside:false,
           x:0,
           y:0,
@@ -44,7 +45,6 @@ export default class DraftEditor extends Component {
         }
         if (key == 32 || key == 190) {
           spellCheck(this, this.getCurrentPara());
-          this.onSearch();
         }
        
     }
@@ -60,13 +60,7 @@ export default class DraftEditor extends Component {
       return selectedText;
     }
 
-    passiveVoiceFilter = () =>{
-      let passiveVoices =  passiveVoice(this, this.getCurrentPara());
-      let { editorState} = this.state;
-      this.setState({
-        editorState: EditorState.set(editorState, { decorator:  this.passiveDecorator('allSuggesion') })
-      });
-    }
+
 
     onSearch = (e) => {
       let { editorState, allSuggesion } = this.state;
@@ -131,10 +125,22 @@ export default class DraftEditor extends Component {
         })
       }
 
+      passiveShowdiv = (element) =>{
+        var ele = element.target
+        var rect = ele.getBoundingClientRect();
+        console.log('element', rect)
+        const x = rect.left;
+        const y = rect.bottom;
+        this.setState({x, y, passiveShow:true})
+      }
+
+      passiveHidediv = () =>{
+        this.setState({passiveShow: false})
+      }
+
       mouseEnter = (blockKey, start, end, suggesion, element) =>{
         console.log(blockKey, start, end, suggesion);
       
-
         var ele = element.target
         var rect = ele.getBoundingClientRect();
         console.log('element', rect)
@@ -201,6 +207,7 @@ export default class DraftEditor extends Component {
         console.log("inside")
       }
 
+   
       SearchHighlight = (props, suggesion_res) => {
         // console.log("props", props)
         let suggest = [];
@@ -210,11 +217,15 @@ export default class DraftEditor extends Component {
           suggest = actual[0].expected;
         }
         console.log('actual', actual, 'text', text);
-        if(actual[0].pgm && actual[0].pgm == 'passive'){
-        return <span className="passive">{props.children}</span>
-        }
-        
 
+        // passive voice span
+        if(actual[0].pgm && actual[0].pgm == 'passive'){
+        return <span 
+        onMouseEnter={this.passiveShowdiv} 
+        onMouseLeave={this.passiveHidediv}
+         className="passive">{props.children}</span>
+        }
+        // spell check span
         return ( <span 
             onMouseEnter={(e)=>this.mouseEnter(props.blockKey, props.start, props.end, suggest, e)}
             onMouseLeave={this.onLeave}
@@ -249,7 +260,7 @@ export default class DraftEditor extends Component {
     focus = () => this.editor.focus();
 
     render() {
-      const { show, x, y, suggesion, ignore, inside } = this.state;
+      const { show, x, y, suggesion, ignore, passiveShow } = this.state;
         return (
             <div className="container">
                 <h3>daraftjs</h3>
@@ -276,8 +287,7 @@ export default class DraftEditor extends Component {
 <br/>
         <div >
 
-        {
-                show &&
+        {     show &&
                 <div className="suggest rounded hov" style={{left: x, top:y }} onMouseEnter={()=> this.setState({inside:true})}
                  onMouseLeave={() => this.setState({show:false, inside: false})}>
                     { suggesion }
@@ -286,23 +296,12 @@ export default class DraftEditor extends Component {
                 </div>
                }
       </div>
+    { passiveShow &&
+      <div className='passive-suggesion'  style={{left: x, top:y }} >
+        <p className="m-0">Passive Voice: Use active voice.</p>
+      </div>
+    }
 
-
-      {/* <div className="search-and-replace">
-          <input
-            value={this.state.search}
-            onChange={this.onChangeSearch}
-            placeholder="Search..."
-          />
-          <input
-            value={this.state.replace}
-            onChange={this.onChangeReplace}
-            placeholder="Replace..."
-          />
-          <button onClick={this.onReplace}>
-            Replace
-          </button>
-        </div> */}
 
             </div>
         )
