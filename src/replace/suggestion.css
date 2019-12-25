@@ -1,0 +1,46 @@
+.txt_sel{
+    border-bottom: solid 3px blue;
+}
+
+.txt_sel:hover{
+    background-color:rgba(197, 161, 255, 0.8);
+    transition-property: background-color;
+    transition-duration: 1s;   
+}
+
+
+.suggest{
+    width: 15%;
+    text-align: left;
+    background-color: white;
+    box-shadow: 1px 1px 5px gray;
+    position: absolute;
+    /* left: calc(551px - 10%);
+    top:52px; */
+}
+
+.select{
+    color: blue;
+    font-weight: 600;
+}
+.select:hover{
+    background-color: blue;
+    color: whitesmoke;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ignore{
+    font-size: 14px;
+    color: gray;
+}
+.ignore:hover{
+    background-color: blue;
+    font-size: 14px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.highlight {
+    background-color: yellow;
+  }
