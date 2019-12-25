@@ -27,8 +27,8 @@ const Websoket = () => {
                     <div onChange={(e)=> changeOne(e) } 
                     className='text-left area bg-white' contentEditable="true" placeholder="I look like a textarea" >
 
-       <span className='error'>  sdsdfsd </span>
-my contant is here
+       {/* <span className='error'>  sdsdfsd </span>
+my contant is here */}
                     </div>
                 </div>
                 <div className='col-md-6'>
