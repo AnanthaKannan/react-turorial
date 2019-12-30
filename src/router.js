@@ -17,15 +17,36 @@ import FetchDataButton from './hooksComponent/FetchDataButton';
 import FetchData from './hooksComponent/FetchData';
 import HookArray from './hooksComponent/HookArray';
 import HookObject from './hooksComponent/HookObject';
+import AnimationEff from './Comp/AnimationEff';
 
 export const routes = [
-    { COMPONENT: <Websoket />, PATH:'/Websoket' },
-    { COMPONENT: <MouseMove />, PATH:'/MouseMove' },
-    { COMPONENT:<ConditionalyRun />, PATH:'/ConditionalyRun' },
-    { COMPONENT:<Form />, PATH:'/Form' },
-    { COMPONENT:<Styling />, PATH:'/Styling' },
-    { COMPONENT:<ListRendering />, PATH:'/ListRendering' },
-    { COMPONENT:<ParentComponent />, PATH:'/ParentComponent' },
+    { 
+        COMPONENT: <Websoket />,
+        PATH:'/Websoket' 
+    },
+    {
+        COMPONENT: <MouseMove />,
+        PATH:'/MouseMove' },
+    { 
+        COMPONENT:<ConditionalyRun />,
+        PATH:'/ConditionalyRun'
+    },
+    { 
+        COMPONENT:<Form />, 
+        PATH:'/Form' 
+    },
+    { 
+        COMPONENT:<Styling />, 
+        PATH:'/Styling' 
+    },
+    { 
+        COMPONENT:<ListRendering />, 
+        PATH:'/ListRendering'
+    },
+    { 
+        COMPONENT:<ParentComponent />, 
+        PATH:'/ParentComponent'
+    },
     {
         COMPONENT:<ClassClick />,
         PATH:'/ClassClick'
@@ -94,6 +115,9 @@ export const routes = [
         COMPONENT:<EventBinding />,
         PATH:'/EventBinding'
     },
-
+    {
+        COMPONENT:<AnimationEff />,
+        PATH:'/AnimationEffect'
+    }
     
 ]
