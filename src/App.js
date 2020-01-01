@@ -23,6 +23,7 @@ import ReducerTwo from './hooksComponent/ReducerTwo';
 import GlobalState from './hooksComponent/globalState/GlobalState';
 import GlobalStateA from './hooksComponent/globalState/GlobalStateA';
 import GlobalStateB from './hooksComponent/globalState/GlobalStateB';
+import ChkPage from './hooksComponent/ChkPage';
 
 export const UserContext = React.createContext();
 export const ChannelContext = React.createContext();
@@ -43,6 +44,7 @@ function App() {
   return (
     <div className="App" >
     <ConponentUnmount />
+    <ChkPage />
     {/* <MouseMove /> */}
     {/* <ConditionalyRun /> */}
       {/* <Form /> */}
