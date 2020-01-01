@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { UserContext, ChannelContext } from '../../App';
-
+import { UserContext, ChannelContext } from '../../router';
 
 const ContextC = () => {
 

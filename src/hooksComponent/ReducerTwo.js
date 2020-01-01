@@ -8,6 +8,7 @@ const ReducerTwo = () => {
     }
 
     const[count, dispatch ] = useReducer((state, action) =>{
+        console.log("mystate", state);
         switch (action.type) {
             case 'fInc': return { ...state, firstCount: state.firstCount + action.value  };
             case 'fDec': return { ...state, firstCount: state.firstCount - action.value};

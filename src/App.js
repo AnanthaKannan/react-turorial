@@ -1,33 +1,7 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, createContext } from 'react';
 import './App.css';
-import ClassClick from './component/ClassClick';
-import FunctionClick from './component/FunctionClick';
-import EventBinding from './component/EventBinding';
-import ParentComponent from './component/ParentComponent';
-import ConditionalRendering from './component/ConditionalRendering';
-import ListRendering from './component/ListRendering';
-import Styling from './styling/Styling';
-import Form from './component/Form';
-import ConditionalyRun from './hooksComponent/ConditionalyRun';
-import MouseMove from './hooksComponent/MouseMove';
-import ConponentUnmount from './hooksComponent/ConponentUnmount';
-
-import HookCounter from './hooksComponent/HookCounter';
-import HookObject from './hooksComponent/HookObject';
-import HookArray from './hooksComponent/HookArray';
-import FetchData from './hooksComponent/FetchData';
-import FetchDataButton from './hooksComponent/FetchDataButton';
-import Context from './hooksComponent/context/Context';
-import Reducer from './hooksComponent/Reducer';
-import ReducerTwo from './hooksComponent/ReducerTwo';
-import GlobalState from './hooksComponent/globalState/GlobalState';
-import GlobalStateA from './hooksComponent/globalState/GlobalStateA';
-import GlobalStateB from './hooksComponent/globalState/GlobalStateB';
-import ChkPage from './hooksComponent/ChkPage';
-
-export const UserContext = React.createContext();
-export const ChannelContext = React.createContext();
-export const CountContext = React.createContext();
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {routes} from './router'
 
 function App() {
 
@@ -39,53 +13,40 @@ function App() {
           case 'reset': return initalState;
           default: return state;
       }
-  }, initalState )
+  }, initalState);
 
-  return (
-    <div className="App" >
-    <ConponentUnmount />
-    <ChkPage />
-    {/* <MouseMove /> */}
-    {/* <ConditionalyRun /> */}
-      {/* <Form /> */}
-        {/* <Styling /> */}
-        {/* <ListRendering /> */}
-        {/* <ConditionalRendering /> */}
-        {/* <ParentComponent /> */}
-        {/* <ClassClick/> */}
-         {/* <FunctionClick /> */}
-         {/* <EventBinding /> */}
-      {/* <HookCounter /> */}
-      {/* <HookCounterThree /> */}
+return(
+  <Router>
+      <div className="container">
+        <div className="d-flex flex-wrap">
+          {/* {
+            routes.map(route => <span className="p-3"><Link to={route.PATH}>{route.PATH}</Link></span>)
+          } */}
+        </div>
 
-      <CountContext.Provider value={{ countState: count, countDispatch: dispatch }} >
-    <GlobalState />
-    <GlobalStateA />
-    <GlobalStateB />
-    </CountContext.Provider>
-      {/* <UserContext.Provider value={'kannan'} age={24}>
-          <ChannelContext.Provider value={'rapid'} >
-          <Context />
-          </ChannelContext.Provider>
-      </UserContext.Provider> */}
+        <hr />
 
-      {/* <Reducer /> */}
-      {/* <ReducerTwo /> */}
-
-      {/* <FetchDataButton /> */}
-      {/* <FetchData /> */}
-      {/* <HookArray /> */}
-      {/* <HookCounter />
-      <HookObject /> */}
-        {/* <Styling />
-        <ListRendering />
-        <ConditionalRendering />
-        <ParentComponent />
-        <ClassClick/>
-         <FunctionClick />
-         <EventBinding /> */}
-    </div>
-  );
+        <Switch>
+        {
+          routes.map((route) => {
+             return <Route key={route.PATH} path={route.PATH} >
+                  { route.COMPONENT }
+              </Route>
+          })
+        }
+          {/* <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route> */}
+        </Switch>
+      </div>
+    </Router>
+)
 }
 
 export default App;
