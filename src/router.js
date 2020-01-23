@@ -21,7 +21,7 @@ import AnimationEff from './Comp/animationEff/AnimationEff';
 
 import Chk from './Comp/Chk';
 import Context from './hooksComponent/context/Context';
-import GlobalState from './hooksComponent/globalState/GlobalState';
+// import GlobalState from './hooksComponent/globalState/GlobalState';
 
 
 export const UserContext = createContext();
@@ -35,7 +35,7 @@ export const routes = [
     },
     {
         COMPONENT: <MouseMove />,
-        PATH:'/MouseMove' 
+        PATH:'/' 
     },
     { 
         COMPONENT:<ConditionalyRun />,
@@ -145,10 +145,11 @@ export const routes = [
         COMPONENT:<ReducerTwo />,
         PATH:'ReducerTwo'
     },
-    {
-        COMPONENT:<GlobalState />,
-        PATH:'/GlobalState'
-    },
+    // {
+    //     COMPONENT:
+    //     <GlobalState />,
+    //     PATH:'/GlobalState'
+    // },
     {
         COMPONENT:<Chk />,
         PATH:'/chk'
