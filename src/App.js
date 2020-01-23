@@ -2,30 +2,27 @@ import React, { useReducer, createContext } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {routes} from './router'
+import Chk from './Comp/Chk';
+import { initalState, reducer, CountContext } from './hook/BasicContext';
 
 function App() {
 
-  const initalState = 0;
-  const [count, dispatch] = useReducer((state, action)=>{
-      switch (action) {
-          case 'inc':return state + 1;
-          case 'dec':return state - 1;
-          case 'reset': return initalState;
-          default: return state;
-      }
-  }, initalState);
+  const [count, dispatch] = useReducer(reducer ,initalState);
 
 return(
   <Router>
-      <div className="container">
-        <div className="d-flex flex-wrap">
-          {/* {
-            routes.map(route => <span className="p-3"><Link to={route.PATH}>{route.PATH}</Link></span>)
-          } */}
+  
+      <div className="container-fluid">
+        <div className="d-flex">
+        <div className="border-right pr-3 mr-3">
+          {
+            routes.map(route => <div className=""><Link to={route.PATH}>{route.PATH}</Link></div>)
+          }
         </div>
 
-        <hr />
-
+        <br />
+        <div>
+        <CountContext.Provider value={{countState:count, countDispatch: dispatch}}>
         <Switch>
         {
           routes.map((route) => {
@@ -44,6 +41,9 @@ return(
             <Dashboard />
           </Route> */}
         </Switch>
+        </CountContext.Provider> 
+        </div>
+      </div>
       </div>
     </Router>
 )

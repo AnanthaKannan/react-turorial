@@ -18,15 +18,10 @@ import FetchData from './hooksComponent/FetchData';
 import HookArray from './hooksComponent/HookArray';
 import HookObject from './hooksComponent/HookObject';
 import AnimationEff from './Comp/animationEff/AnimationEff';
-
 import Chk from './Comp/Chk';
 import Context from './hooksComponent/context/Context';
 // import GlobalState from './hooksComponent/globalState/GlobalState';
-
-
-export const UserContext = createContext();
-export const ChannelContext = createContext();
-export const CountContext = createContext();
+import { UserProvider } from './hook/BasicContext';
 
 export const routes = [
     { 
@@ -35,7 +30,7 @@ export const routes = [
     },
     {
         COMPONENT: <MouseMove />,
-        PATH:'/' 
+        PATH:'/MouseMove' 
     },
     { 
         COMPONENT:<ConditionalyRun />,
@@ -130,11 +125,9 @@ export const routes = [
         PATH:'/AnimationEffect'
     },
     {
-        COMPONENT: <UserContext.Provider value="username">
-                      <ChannelContext.Provider value="channal name">
-                         <Context />
-                      </ChannelContext.Provider>
-                    </UserContext.Provider> ,
+        COMPONENT: <UserProvider value={{ name: 'Tania', loggedIn: true }}>    
+                          <Context />
+                    </UserProvider>,
         PATH:'/context'
     },
     {
@@ -143,16 +136,15 @@ export const routes = [
     },
     {
         COMPONENT:<ReducerTwo />,
-        PATH:'ReducerTwo'
+        PATH:'/ReducerTwo'
     },
     // {
-    //     COMPONENT:
-    //     <GlobalState />,
+    //     COMPONENT: <GlobalState />,
     //     PATH:'/GlobalState'
     // },
-    {
-        COMPONENT:<Chk />,
-        PATH:'/chk'
-    }
+    // {
+    //     COMPONENT:  <Chk />,
+    //     PATH:'/chk'
+    // }
     
 ]
