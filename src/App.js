@@ -13,6 +13,7 @@ return(
   <Router>
   
       <div className="container-fluid">
+      <p className="bg-danger m-0">some data is here</p>
         <div className="d-flex">
         <div className="border-right pr-3 mr-3">
           {
