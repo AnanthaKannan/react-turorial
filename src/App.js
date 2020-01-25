@@ -1,30 +1,34 @@
 import React, { useReducer } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
 import {routes} from './router'
-// export const UserContext = React.createContext();
-// export const ChannelContext = React.createContext();
-// export const CountContext = React.createContext();
+import { RouteActive } from './hooksComponent/RouteActive';
+import { ErrorPg } from './pages/ErrorPg';
 
 function App() {
-
-  // const initalState = 0;
-  // const [count, dispatch] = useReducer((state, action)=>{
-  //     switch (action) {
-  //         case 'inc':return state + 1;
-  //         case 'dec':return state - 1;
-  //         case 'reset': return initalState;
-  //         default: return state;
-  //     }
-  // }, initalState);
 
 return(
   <Router>
       <div className="container">
         <div className="d-flex flex-wrap">
-          {
+           {
             routes.map(route => <span className="p-3"><Link to={route.PATH}>{route.PATH}</Link></span>)
           }
+
+            {/* <RouteActive 
+              activeOnlyWhenExact={true}
+              to="/"
+              label="/" /> */}
+          {/* {
+            routes.map((route) =>{
+              return(
+                <RouteActive 
+                activeOnlyWhenExact = {true}
+                to={route.PATH}
+                label={route.PATH} />
+              )
+            })
+          } */}
           {/* <li>
             <Link to="/">Home</Link>
           </li>
@@ -39,13 +43,21 @@ return(
         <hr />
 
         <Switch>
+
+        {/* <NavLink to="/Form">About</NavLink> */}
+
         {
           routes.map((route) => {
-             return <Route path={route.PATH} >
+             return <Route path={route.PATH} exact >
                   { route.COMPONENT }
               </Route>
           })
         }
+       
+        <Route path="*">
+          <ErrorPg />
+          </Route>
+
           {/* <Route exact path="/">
             <Home />
           </Route>

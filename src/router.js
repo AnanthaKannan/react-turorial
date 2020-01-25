@@ -17,30 +17,31 @@ import FetchDataButton from './hooksComponent/FetchDataButton';
 import FetchData from './hooksComponent/FetchData';
 import HookArray from './hooksComponent/HookArray';
 import HookObject from './hooksComponent/HookObject';
+import RouterExample from './hooksComponent/RouterExample';
+import { RedirectPg } from './pages/RedirectPg';
+// import { Check } from './chkeck/Check';
+// import { CheckHTML } from './chkeck/CheckHTML';
 
 export const routes = [
-    { COMPONENT: <Websoket />, PATH:'/Websoket' },
-    { COMPONENT: <MouseMove />, PATH:'/MouseMove' },
-    { COMPONENT:<ConditionalyRun />, PATH:'/ConditionalyRun' },
-    { COMPONENT:<Form />, PATH:'/Form' },
-    { COMPONENT:<Styling />, PATH:'/Styling' },
-    { COMPONENT:<ListRendering />, PATH:'/ListRendering' },
-    { COMPONENT:<ParentComponent />, PATH:'/ParentComponent' },
+    { 
+        COMPONENT: <MouseMove />,
+        PATH:'/'
+     },
+    {
+        COMPONENT: <Websoket />, 
+        PATH:'/Websoket' },
+    {
+        COMPONENT:<ConditionalyRun />,
+        PATH:'/ConditionalyRun' },
+    { 
+        COMPONENT:<Form />, 
+        PATH:'/Form' },
+    { 
+        COMPONENT:<ListRendering />,
+        PATH:'/ListRendering' },
     {
         COMPONENT:<ClassClick />,
         PATH:'/ClassClick'
-    },
-    {
-        COMPONENT:<FunctionClick />,
-        PATH:'/FunctionClick'
-    },
-    {
-        COMPONENT:<EventBinding />,
-        PATH:'/EventBinding'
-    },
-    {
-        COMPONENT:<HookCounter />,
-        PATH:'/HookCounter'
     },
     {
         COMPONENT:<Reducer />,
@@ -83,10 +84,6 @@ export const routes = [
         PATH:'/ParentComponent'
     },
     {
-        COMPONENT:<ClassClick />,
-        PATH:'/ClassClick'
-    },
-    {
         COMPONENT:<FunctionClick />,
         PATH:'/FunctionClick'
     },
@@ -94,6 +91,16 @@ export const routes = [
         COMPONENT:<EventBinding />,
         PATH:'/EventBinding'
     },
-
-    
+    {
+        COMPONENT:<RouterExample/>,
+        PATH:'/RouterExample'
+    },
+    {
+        COMPONENT:<RedirectPg/>,
+        PATH:'/Redirect'
+    },
+    // {
+    //     COMPONENT: <CheckHTML /> ,
+    //     PATH:'/Check'
+    // }
 ]
