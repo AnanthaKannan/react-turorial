@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createContext, useReducer } from 'react'
 import Websoket from "./websoket/websoket";
 import MouseMove from "./hooksComponent/MouseMove";
 import ConditionalyRun from "./hooksComponent/ConditionalyRun";
@@ -17,28 +17,45 @@ import FetchDataButton from './hooksComponent/FetchDataButton';
 import FetchData from './hooksComponent/FetchData';
 import HookArray from './hooksComponent/HookArray';
 import HookObject from './hooksComponent/HookObject';
-import RouterExample from './hooksComponent/RouterExample';
-import { RedirectPg } from './pages/RedirectPg';
-// import { Check } from './chkeck/Check';
-// import { CheckHTML } from './chkeck/CheckHTML';
+import AnimationEff from './Comp/animationEff/AnimationEff';
+import Chk from './Comp/Chk';
+import Context from './hooksComponent/context/Context';
+// import GlobalState from './hooksComponent/globalState/GlobalState';
+import { UserProvider } from './hook/BasicContext';
 
 export const routes = [
-    { 
+    {
         COMPONENT: <MouseMove />,
-        PATH:'/'
-     },
+        PATH:'/' 
+    },
+    { 
+        COMPONENT: <Websoket />,
+        PATH:'/Websoket' 
+    },
     {
-        COMPONENT: <Websoket />, 
-        PATH:'/Websoket' },
-    {
+        COMPONENT: <MouseMove />,
+        PATH:'/MouseMove' 
+    },
+    { 
         COMPONENT:<ConditionalyRun />,
-        PATH:'/ConditionalyRun' },
+        PATH:'/ConditionalyRun'
+    },
     { 
         COMPONENT:<Form />, 
-        PATH:'/Form' },
+        PATH:'/Form' 
+    },
     { 
-        COMPONENT:<ListRendering />,
-        PATH:'/ListRendering' },
+        COMPONENT:<Styling />, 
+        PATH:'/Styling' 
+    },
+    { 
+        COMPONENT:<ListRendering />, 
+        PATH:'/ListRendering'
+    },
+    { 
+        COMPONENT:<ParentComponent />, 
+        PATH:'/ParentComponent'
+    },
     {
         COMPONENT:<ClassClick />,
         PATH:'/ClassClick'
@@ -92,15 +109,30 @@ export const routes = [
         PATH:'/EventBinding'
     },
     {
-        COMPONENT:<RouterExample/>,
-        PATH:'/RouterExample'
+        COMPONENT:<AnimationEff />,
+        PATH:'/AnimationEffect'
     },
     {
-        COMPONENT:<RedirectPg/>,
-        PATH:'/Redirect'
+        COMPONENT: <UserProvider value={{ name: 'Tania', loggedIn: true }}>    
+                          <Context />
+                    </UserProvider>,
+        PATH:'/context'
+    },
+    {
+        COMPONENT:<Reducer />,
+        PATH:'/Reducer'
+    },
+    {
+        COMPONENT:<ReducerTwo />,
+        PATH:'/ReducerTwo'
     },
     // {
-    //     COMPONENT: <CheckHTML /> ,
-    //     PATH:'/Check'
+    //     COMPONENT: <GlobalState />,
+    //     PATH:'/GlobalState'
+    // },
+    // {
+    //     COMPONENT:  <Chk />,
+    //     PATH:'/chk'
     // }
+    
 ]

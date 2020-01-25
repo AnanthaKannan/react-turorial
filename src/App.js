@@ -1,62 +1,43 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, createContext } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route, Link, NavLink } from "react-router-dom";
 import {routes} from './router'
-import { RouteActive } from './hooksComponent/RouteActive';
-import { ErrorPg } from './pages/ErrorPg';
+import Chk from './Comp/Chk';
+import { initalState, reducer, CountContext } from './hook/BasicContext';
 
 function App() {
 
+  const [count, dispatch] = useReducer(reducer ,initalState);
+
 return(
   <Router>
-      <div className="container">
-        <div className="d-flex flex-wrap">
-           {
-            routes.map(route => <span className="p-3"><Link to={route.PATH}>{route.PATH}</Link></span>)
+  
+      <div className="container-fluid">
+        <div className="d-flex">
+        <div className="border-right pr-3 mr-3">
+          {
+            routes.map(route => <div className=""><Link to={route.PATH}>{route.PATH}</Link></div>)
           }
-
-            {/* <RouteActive 
-              activeOnlyWhenExact={true}
-              to="/"
-              label="/" /> */}
-          {/* {
-            routes.map((route) =>{
-              return(
-                <RouteActive 
-                activeOnlyWhenExact = {true}
-                to={route.PATH}
-                label={route.PATH} />
-              )
-            })
-          } */}
-          {/* <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/websocket">Dashboard</Link>
-          </li> */}
         </div>
 
-        <hr />
-
+        <br />
+        <div>
+        <CountContext.Provider value={{countState:count, countDispatch: dispatch}}>
         <Switch>
 
         {/* <NavLink to="/Form">About</NavLink> */}
 
         {
           routes.map((route) => {
-             return <Route path={route.PATH} exact >
+             return <Route key={route.PATH} path={route.PATH} >
                   { route.COMPONENT }
               </Route>
           })
         }
        
-        <Route path="*">
+        {/* <Route path="*">
           <ErrorPg />
-          </Route>
+          </Route> */}
 
           {/* <Route exact path="/">
             <Home />
@@ -68,6 +49,9 @@ return(
             <Dashboard />
           </Route> */}
         </Switch>
+        </CountContext.Provider> 
+        </div>
+      </div>
       </div>
     </Router>
 )
