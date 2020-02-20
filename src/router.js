@@ -22,15 +22,20 @@ import Chk from './Comp/Chk';
 import Context from './hooksComponent/context/Context';
 // import GlobalState from './hooksComponent/globalState/GlobalState';
 import { UserProvider } from './hook/BasicContext';
+import Check from './check/Check';
 
 export const routes = [
-    {
-        COMPONENT: <MouseMove />,
-        PATH:'/' 
-    },
+    // {
+    //     COMPONENT: <MouseMove />,
+    //     PATH:'/' 
+    // },
     { 
         COMPONENT: <Websoket />,
         PATH:'/Websoket' 
+    },
+    {
+        COMPONENT:<Check />,
+        PATH: '/check'
     },
     {
         COMPONENT: <MouseMove />,
