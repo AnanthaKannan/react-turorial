@@ -135,9 +135,9 @@ export const routes = [
     //     COMPONENT: <GlobalState />,
     //     PATH:'/GlobalState'
     // },
-    // {
-    //     COMPONENT:  <Chk />,
-    //     PATH:'/chk'
-    // }
+    {
+        COMPONENT:  <Chk />,
+        PATH:'/chk'
+    }
     
 ]
