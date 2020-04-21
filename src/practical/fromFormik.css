@@ -61,3 +61,35 @@
     color: #555;
   }
   
+  /* .animated {
+    animation-duration: .3s;
+    animation-fill-mode: both;
+  } */
+  .animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+  
+  @keyframes shake {
+    from, to {
+      transform: translate3d(0, 0, 0);
+    }
+  
+    10%, 30%, 50%, 70%, 90% {
+      transform: translate3d(-5px, 0, 0);
+    }
+  
+    20%, 40%, 60%, 80% {
+      transform: translate3d(5px, 0, 0);
+    }
+  }
+  
+  .shake {
+    animation-name: shake;
+  }
+
+  .required::after{
+    content: "*";
+    color: red;
+    margin-left: 4px;
+  }
