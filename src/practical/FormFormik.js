@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./fromFormik.css";
+
+
 export default function FormFormik() {
+
+
 
     const formik = useFormik({
         initialValues:{
@@ -21,6 +25,8 @@ export default function FormFormik() {
 
     return (
         <div className="d-flex">
+           
+
             <form onSubmit={formik.handleSubmit}>
                 <label htmlFor='name' className="required">Name</label>
                 <input type="text" id="name" name="name"

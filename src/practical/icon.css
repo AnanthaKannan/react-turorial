@@ -1,0 +1,24 @@
+.animated{
+    animation-duration: 15s;
+    animation-fill-mode: both;
+}
+
+@keyframes routate {
+    /* from, to {
+      transform: translate3d(0, 0, 0);
+    } */
+    10%{
+        transform: rotate(36deg);
+    }
+    
+    100%{
+        transform: rotate(360deg);
+    }
+    /* 40%{
+        
+    } */
+  }
+  
+  .routate {
+    animation-name: routate;
+  }

@@ -18,6 +18,8 @@ import FormFormik from './practical/FormFormik'
 // import GlobalState from './hooksComponent/globalState/GlobalState';
 import { UserProvider } from './hook/BasicContext';
 import Check from './check/Check';
+import Icons from './practical/Icons';
+import APIcall from './practical/APIcall';
 
 export const routes = [
    
@@ -94,6 +96,14 @@ export const routes = [
     {
         COMPONENT: < FormFormik />,
         PATH: '/FormFormik'
+    },
+    {
+        COMPONENT:<Icons />,
+        PATH:'/Icons'
+    },
+    {
+        COMPONENT:<APIcall />,
+        PATH:'/APIcall'
     }
     // {
     //     COMPONENT: <GlobalState />,
