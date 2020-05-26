@@ -1,16 +1,10 @@
 import React, {createContext, useReducer } from 'react'
-import Websoket from "./websoket/websoket";
 import MouseMove from "./hooksComponent/MouseMove";
-import ConditionalyRun from "./hooksComponent/ConditionalyRun";
-import Form from './component/Form';
 import Styling from './styling/Styling';
 import ListRendering from './component/ListRendering';
 import ConditionalRendering from './component/ConditionalRendering';
 import ParentComponent from './component/ParentComponent';
-import ClassClick from './component/ClassClick';
-import FunctionClick from './component/FunctionClick';
 import EventBinding from './component/EventBinding';
-import HookCounter from './hooksComponent/HookCounter';
 import Reducer from './hooksComponent/Reducer';
 import ReducerTwo from './hooksComponent/ReducerTwo';
 import FetchDataButton from './hooksComponent/FetchDataButton';
@@ -20,19 +14,15 @@ import HookObject from './hooksComponent/HookObject';
 import AnimationEff from './Comp/animationEff/AnimationEff';
 import Chk from './Comp/Chk';
 import Context from './hooksComponent/context/Context';
+import FormFormik from './practical/FormFormik'
 // import GlobalState from './hooksComponent/globalState/GlobalState';
 import { UserProvider } from './hook/BasicContext';
 import Check from './check/Check';
+import Icons from './practical/Icons';
+import APIcall from './practical/APIcall';
 
 export const routes = [
-    // {
-    //     COMPONENT: <MouseMove />,
-    //     PATH:'/' 
-    // },
-    { 
-        COMPONENT: <Websoket />,
-        PATH:'/Websoket' 
-    },
+   
     {
         COMPONENT:<Check />,
         PATH: '/check'
@@ -40,14 +30,6 @@ export const routes = [
     {
         COMPONENT: <MouseMove />,
         PATH:'/MouseMove' 
-    },
-    { 
-        COMPONENT:<ConditionalyRun />,
-        PATH:'/ConditionalyRun'
-    },
-    { 
-        COMPONENT:<Form />, 
-        PATH:'/Form' 
     },
     { 
         COMPONENT:<Styling />, 
@@ -60,10 +42,6 @@ export const routes = [
     { 
         COMPONENT:<ParentComponent />, 
         PATH:'/ParentComponent'
-    },
-    {
-        COMPONENT:<ClassClick />,
-        PATH:'/ClassClick'
     },
     {
         COMPONENT:<Reducer />,
@@ -86,10 +64,6 @@ export const routes = [
         PATH:'/HookArray'
     },
     {
-        COMPONENT:<HookCounter />,
-        PATH:'/HookCounter'
-    },
-    {
         COMPONENT:<HookObject />,
         PATH:'/HookObject'
     },
@@ -106,10 +80,6 @@ export const routes = [
         PATH:'/ParentComponent'
     },
     {
-        COMPONENT:<FunctionClick />,
-        PATH:'/FunctionClick'
-    },
-    {
         COMPONENT:<EventBinding />,
         PATH:'/EventBinding'
     },
@@ -124,13 +94,17 @@ export const routes = [
         PATH:'/context'
     },
     {
-        COMPONENT:<Reducer />,
-        PATH:'/Reducer'
+        COMPONENT: < FormFormik />,
+        PATH: '/FormFormik'
     },
     {
-        COMPONENT:<ReducerTwo />,
-        PATH:'/ReducerTwo'
+        COMPONENT:<Icons />,
+        PATH:'/Icons'
     },
+    {
+        COMPONENT:<APIcall />,
+        PATH:'/APIcall'
+    }
     // {
     //     COMPONENT: <GlobalState />,
     //     PATH:'/GlobalState'
