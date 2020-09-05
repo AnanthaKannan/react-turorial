@@ -12,7 +12,6 @@ import FetchData from './hooksComponent/FetchData';
 import HookArray from './hooksComponent/HookArray';
 import HookObject from './hooksComponent/HookObject';
 import AnimationEff from './Comp/animationEff/AnimationEff';
-import Chk from './Comp/Chk';
 import Context from './hooksComponent/context/Context';
 import FormFormik from './practical/FormFormik'
 // import GlobalState from './hooksComponent/globalState/GlobalState';
@@ -20,12 +19,15 @@ import { UserProvider } from './hook/BasicContext';
 import Check from './check/Check';
 import Icons from './practical/Icons';
 import APIcall from './practical/APIcall';
+import LightButton from './advanceCss/lightButton/LightButton';
+
+
 
 export const routes = [
 
     {
-        COMPONENT:  <Chk />,
-        PATH:'/chk'
+        COMPONENT: <LightButton />,
+        PATH:'/LightButton'
     }
     
 ]

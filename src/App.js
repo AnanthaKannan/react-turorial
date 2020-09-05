@@ -13,13 +13,12 @@ return(
   <Router>
   
       <div className="container-fluid">
-      <p className="bg-danger m-0">some data is here</p>
         <div className="d-flex">
-        <div className="border-right pr-3 mr-3">
+        {/* <div className="border-right pr-3 mr-3">
           {
             routes.map(route => <div className=""><Link to={route.PATH}>{route.PATH}</Link></div>)
           }
-        </div>
+        </div> */}
 
         <br />
         <div>
