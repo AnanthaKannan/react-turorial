@@ -1,4 +1,4 @@
-  
+/*   
   input {
     padding: .5rem;
     font-size: 16px;
@@ -61,10 +61,6 @@
     color: #555;
   }
   
-  /* .animated {
-    animation-duration: .3s;
-    animation-fill-mode: both;
-  } */
   .animated {
     animation-duration: 1s;
     animation-fill-mode: both;
@@ -92,4 +88,4 @@
     content: "*";
     color: red;
     margin-left: 4px;
-  }
+  } */

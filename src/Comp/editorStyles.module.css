@@ -1,0 +1,42 @@
+.editor {
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    cursor: text;
+    padding: 16px;
+    border-radius: 2px;
+    margin-bottom: 2em;
+    box-shadow: inset 0px 1px 8px -3px #ABABAB;
+    background: #fefefe;
+  }
+  
+  .editor :global(.public-DraftEditor-content) {
+    min-height: 140px;
+  }
+
+  .input {
+    height: 34px;
+    width: 220px;
+    padding: 0 12px;
+    font-size: 15px;
+    font-family: inherit;
+    background-color: transparent;
+    border: none;
+    color: #ddd;
+  }
+  
+  .input:focus {
+    outline: none;
+  }
+  
+  .input::placeholder {
+    color: #aaa;
+  }
+  
+  .inputInvalid {
+    color: #e65757;
+  }
+  
+  .link {
+    color: #2996da;
+    text-decoration: underline;
+  }

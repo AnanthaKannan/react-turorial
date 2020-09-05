@@ -1,46 +1,53 @@
-import React, { Component } from 'react'
-import {Editor, EditorState, RichUtils, Modifier} from 'draft-js';
+import React, { Component } from 'react';
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
+import createLinkPlugin from 'draft-js-anchor-plugin';
+import { ItalicButton, BoldButton, UnderlineButton } from 'draft-js-buttons';
 
-export default class Chk extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {editorState: EditorState.createEmpty()};
-    this.onChange = editorState => this.setState({editorState});
-    this.handleKeyCommand = this.handleKeyCommand.bind(this);
-  }
-  handleKeyCommand(command, editorState) {
-    console.log("funcitonCalled", command)
-    const newState = RichUtils.handleKeyCommand(editorState, 'BOLD');
-    if (newState) {
-      this.onChange(newState);
-      return 'handled';
-    }
-    return 'not-handled';
-  }
+import editorStyles from './editorStyles.module.css';
+import 'draft-js-static-toolbar-plugin/lib/plugin.css';
+import './linkStyle.css'
 
-  modi = () =>{
-    const sdf
-   const cState = Modifier.replaceText(
-      contentState,
-      selectionState,
-      replace,
-    )
-  }
-  
+const linkPlugin = createLinkPlugin();
+const inlineToolbarPlugin = createInlineToolbarPlugin();
+const { InlineToolbar } = inlineToolbarPlugin;
+const plugins = [inlineToolbarPlugin, linkPlugin];
+const text = 'Try selecting a part of this text and click on the link button in the toolbar that appears …';
+
+export default class SimpleLinkPluginEditor extends Component {
+  state = {
+    editorState: createEditorStateWithText(text)
+  };
+
+  onChange = (editorState) =>
+    this.setState({ editorState });
+
+  focus = () =>
+    this.editor.focus();
+
   render() {
     return (
-      <div className='border w-100'>
-        eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-  <Editor
-        editorState={this.state.editorState}
-        handleKeyCommand={this.handleKeyCommand}
-        onChange={this.onChange}
-      />
+      <div className={editorStyles.editor} onClick={this.focus}>
+        <Editor
+          editorState={this.state.editorState}
+          onChange={this.onChange}
+          plugins={plugins}
+          ref={(element) => { this.editor = element; }}
+        />
+        <InlineToolbar>
+          {
+            // may be use React.Fragment instead of div to improve perfomance after React 16
+            (externalProps) => (
+              <div>
+                <BoldButton {...externalProps} />
+                <ItalicButton {...externalProps} />
+                <UnderlineButton {...externalProps} />
+                <linkPlugin.LinkButton {...externalProps} />
+              </div>
+            )
+          }
+        </InlineToolbar>
       </div>
-    
     );
   }
 }
-
-
-// https://reactrocket.com/post/draft-js-search-and-replace/
