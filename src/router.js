@@ -19,15 +19,20 @@ import { UserProvider } from './hook/BasicContext';
 import Check from './check/Check';
 import Icons from './practical/Icons';
 import APIcall from './practical/APIcall';
-import LightButton from './advanceCss/lightButton/LightButton';
+// import LightButton from './advanceCss/lightButton/LightButton';
+import CardA from './advanceCss/cardA/CardA';
 
 
 
 export const routes = [
 
+    // {
+    //     COMPONENT: <LightButton />,
+    //     PATH:'/LightButton'
+    // },
     {
-        COMPONENT: <LightButton />,
-        PATH:'/LightButton'
+        COMPONENT: <CardA />,
+        PATH: '/CardA'
     }
     
 ]
