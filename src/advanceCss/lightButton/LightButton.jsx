@@ -1,9 +1,9 @@
 import React from 'react'
-import './lightButton.css'
+import './lightButton.scss'
 
 const LightButton = () => {
     return (
-        <div>
+        <div className='lightButton'>
             <a href="#">
                 <span></span>
                 <span></span>

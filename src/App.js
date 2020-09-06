@@ -13,19 +13,18 @@ return(
   <Router>
   
       <div className="container-fluid">
-        <div className="d-flex">
-        {/* <div className="border-right pr-3 mr-3">
+        <div className='row'>
+        <div className="col-md-1 border-right p-0 bg-dark">
           {
             routes.map(route => <div className=""><Link to={route.PATH}>{route.PATH}</Link></div>)
           }
-        </div> */}
+        </div>
 
         <br />
-        <div>
+        <div className='col-md-11 p-0'>
         <CountContext.Provider value={{countState:count, countDispatch: dispatch}}>
         <Switch>
 
-        {/* <NavLink to="/Form">About</NavLink> */}
 
         {
           routes.map((route) => {
