@@ -1,4 +1,4 @@
-import React, {createContext, useReducer } from 'react'
+import React, { createContext, useReducer } from 'react'
 // import MouseMove from "./hooksComponent/MouseMove";
 // import Styling from './styling/Styling';
 // import ListRendering from './component/ListRendering';
@@ -21,18 +21,25 @@ import React, {createContext, useReducer } from 'react'
 // import APIcall from './practical/APIcall';
 import LightButton from './advanceCss/lightButton/LightButton';
 import CardA from './advanceCss/cardA/CardA';
+import Swiper from './advanceCss/swiper/Swiper';
 
 
 
 export const routes = [
-
+    {
+        COMPONENT: <Swiper />,
+        PATH: '/Swiper'
+    },
     {
         COMPONENT: <LightButton />,
-        PATH:'/LightButton'
+        PATH: '/LightButton'
     },
     {
         COMPONENT: <CardA />,
         PATH: '/CardA'
-    }
-    
+    }, {
+        COMPONENT: <CardA />,
+        PATH: '/'
+    },
+
 ]

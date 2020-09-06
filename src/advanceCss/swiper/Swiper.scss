@@ -1,0 +1,105 @@
+.cardB {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    background: #232427;
+}
+
+
+
+.cardB {
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+    }
+
+    .cards {
+        height: 440px;
+        width: 90%;
+        box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2);
+        box-shadow: inset -5px -5px -5px rgba(255, 255, 255, 0.1);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        box-shadow: -5px -5px -15px rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // margin: 30px;
+    }
+
+    .cards .box {
+        height: 95%;
+        margin: 15px;
+        background: #2a2b2f;
+        border-radius: 15px;
+        transition: 0.5s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cards .box:hover {
+        transform: translateY(-50px);
+        box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5);
+    }
+
+    .cards .box .content {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .cards .box .content h2 {
+        position: relative;
+        text-align: right;
+        top: -10px;
+        font-size: 8em;
+        color: rgba(255, 255, 255, 0.05);
+    }
+
+    .cards .box .content h3 {
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        z-index: 1;
+        transition: 0.5s;
+    }
+
+    .cards .box .content p {
+        font-size: 16px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.5);
+        z-index: 1;
+        transition: 0.5s;
+    }
+
+    // .cards .box::before {
+    //     background-color: red;
+    //     content: '';
+    //     position: absolute;
+    //     top: 0px;
+    //     left: 0px;
+    //     // background-color: rgba(255, 255, 255, 0.1);
+    //     width: 50%;
+    //     height: 50%;
+    // }
+
+    .cards .box .content a {
+        display: inline-block;
+        padding: 8px 20px;
+        background: #000;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 400;
+        color: #fff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cards:nth-child(1) .box .content a {
+        background: #2196f3;
+    }
+}
