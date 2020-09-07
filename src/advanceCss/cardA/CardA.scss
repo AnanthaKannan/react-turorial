@@ -77,11 +77,21 @@
     } 
 }
 
-
-.cardA .cards:nth-child(1) .circles,
-.cardA .cards:nth-child(1) .contents a {
+.cardA div:nth-child(1) .circles,
+.cardA div:nth-child(1) .contents a {
     background: #ffaf00;
 }
+
+.cardA div:nth-child(3) .circles,
+.cardA div:nth-child(3) .contents a {
+    background: #bb02ff;
+}
+
+.cardA div:nth-child(2) .circles,
+.cardA div:nth-child(2) .contents a {
+    background: #da2268;
+}
+
 
 // .cards:nth-child(2) .circles,
 // .cards:nth-child(2) .contents a {

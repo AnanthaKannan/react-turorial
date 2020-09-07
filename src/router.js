@@ -22,13 +22,22 @@ import React, { createContext, useReducer } from 'react'
 import LightButton from './advanceCss/lightButton/LightButton';
 import CardA from './advanceCss/cardA/CardA';
 import Swiper from './advanceCss/swiper/Swiper';
-
+import ClockA from './advanceCss/clockA/ClockA';
+import AnalogClock from './advanceCss/analogClock/AnalogClock'
 
 
 export const routes = [
     {
+        COMPONENT: <AnalogClock />,
+        PATH: '/AnalogClock'
+    },
+    {
         COMPONENT: <Swiper />,
         PATH: '/Swiper'
+    },
+    {
+        COMPONENT: <ClockA />,
+        PATH: '/ClockA'
     },
     {
         COMPONENT: <LightButton />,
