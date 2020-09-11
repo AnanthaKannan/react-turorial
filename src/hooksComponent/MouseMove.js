@@ -1,4 +1,5 @@
 import React , { useState, useEffect} from 'react'
+import sha256 from 'sha256'
 
 const MouseMove = () => {
 
@@ -9,7 +10,7 @@ const MouseMove = () => {
         window.addEventListener('mousemove', logMousePosition);
 
         return () =>{
-            console.log('component unmounting code');
+            console.log('component unMounting code');
             window.removeEventListener('mousemove', logMousePosition);
         }
 
@@ -18,6 +19,8 @@ const MouseMove = () => {
     const logMousePosition = (e) => {
         setPosition({ x:e.clientX, y:e.clientX });
         console.log('logmouse position');
+        const res = sha256('hello');
+        console.log('res', res);
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react'
-// import MouseMove from "./hooksComponent/MouseMove";
+import MouseMove from "./hooksComponent/MouseMove";
 // import Styling from './styling/Styling';
 // import ListRendering from './component/ListRendering';
 // import ConditionalRendering from './component/ConditionalRendering';
@@ -42,6 +42,10 @@ export const routes = [
     {
         COMPONENT: <LightButton />,
         PATH: '/LightButton'
+    },
+    {
+        COMPONENT: <MouseMove/>,
+        PATH: '/MouseMove'
     },
     {
         COMPONENT: <CardA />,
