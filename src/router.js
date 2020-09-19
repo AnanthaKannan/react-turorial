@@ -16,7 +16,7 @@ import MouseMove from "./hooksComponent/MouseMove";
 // import FormFormik from './practical/FormFormik'
 // import GlobalState from './hooksComponent/globalState/GlobalState';
 // import { UserProvider } from './hook/BasicContext';
-import WysiwygEditor from './check/Check';
+import WysiwygEditor from './tool/Check';
 // import Icons from './practical/Icons';
 // import APIcall from './practical/APIcall';
 import LightButton from './advanceCss/lightButton/LightButton';
@@ -24,9 +24,14 @@ import CardA from './advanceCss/cardA/CardA';
 import Swiper from './advanceCss/swiper/Swiper';
 import ClockA from './advanceCss/clockA/ClockA';
 import AnalogClock from './advanceCss/analogClock/AnalogClock'
+import DraftEditor from './draftEditor/DraftEditor';
 
 
 export const routes = [
+    {
+        COMPONENT: <DraftEditor />,
+        PATH: '/DraftEditor'
+    },
     {
         COMPONENT: <WysiwygEditor />,
         PATH: '/Check'
