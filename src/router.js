@@ -16,7 +16,7 @@ import MouseMove from "./hooksComponent/MouseMove";
 // import FormFormik from './practical/FormFormik'
 // import GlobalState from './hooksComponent/globalState/GlobalState';
 // import { UserProvider } from './hook/BasicContext';
-// import Check from './check/Check';
+import WysiwygEditor from './check/Check';
 // import Icons from './practical/Icons';
 // import APIcall from './practical/APIcall';
 import LightButton from './advanceCss/lightButton/LightButton';
@@ -27,6 +27,10 @@ import AnalogClock from './advanceCss/analogClock/AnalogClock'
 
 
 export const routes = [
+    {
+        COMPONENT: <WysiwygEditor />,
+        PATH: '/Check'
+    },
     {
         COMPONENT: <AnalogClock />,
         PATH: '/AnalogClock'
