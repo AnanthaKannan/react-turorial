@@ -25,9 +25,14 @@ import Swiper from './advanceCss/swiper/Swiper';
 import ClockA from './advanceCss/clockA/ClockA';
 import AnalogClock from './advanceCss/analogClock/AnalogClock'
 import DraftEditor from './draftEditor/DraftEditor';
+import AnimatedEyes from './advanceCss/animatedEyes/AnimatedEyes';
 
 
 export const routes = [
+    {
+        COMPONENT: <AnimatedEyes />,
+        PATH: '/AnimatedEyes'
+    },
     {
         COMPONENT: <DraftEditor />,
         PATH: '/DraftEditor'
