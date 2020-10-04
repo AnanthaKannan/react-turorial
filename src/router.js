@@ -37,10 +37,10 @@ export const routes = [
         COMPONENT: <DraftEditor />,
         PATH: '/DraftEditor'
     },
-    {
-        COMPONENT: <WysiwygEditor />,
-        PATH: '/Check'
-    },
+    // {
+    //     COMPONENT: < />,
+    //     PATH: '/Check'
+    // },
     {
         COMPONENT: <AnalogClock />,
         PATH: '/AnalogClock'
