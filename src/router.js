@@ -16,7 +16,6 @@ import MouseMove from "./hooksComponent/MouseMove";
 // import FormFormik from './practical/FormFormik'
 // import GlobalState from './hooksComponent/globalState/GlobalState';
 // import { UserProvider } from './hook/BasicContext';
-import WysiwygEditor from './tool/Check';
 // import Icons from './practical/Icons';
 // import APIcall from './practical/APIcall';
 import LightButton from './advanceCss/lightButton/LightButton';
@@ -24,19 +23,24 @@ import CardA from './advanceCss/cardA/CardA';
 import Swiper from './advanceCss/swiper/Swiper';
 import ClockA from './advanceCss/clockA/ClockA';
 import AnalogClock from './advanceCss/analogClock/AnalogClock'
-import DraftEditor from './draftEditor/DraftEditor';
+// import DraftEditor from './draftEditor/DraftEditor';
 import AnimatedEyes from './advanceCss/animatedEyes/AnimatedEyes';
+import Table from './table/Table';
 
 
 export const routes = [
     {
+        COMPONENT: <Table />,
+        PATH: "/Table"
+    },
+    {
         COMPONENT: <AnimatedEyes />,
         PATH: '/AnimatedEyes'
     },
-    {
-        COMPONENT: <DraftEditor />,
-        PATH: '/DraftEditor'
-    },
+    // {
+    //     COMPONENT: <DraftEditor />,
+    //     PATH: '/DraftEditor'
+    // },
     // {
     //     COMPONENT: < />,
     //     PATH: '/Check'
