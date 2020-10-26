@@ -1,24 +1,41 @@
 import React, { useMemo, useEffect } from 'react';
 import { COLUMNS, GROUPED_COLUMNS } from './columns';
-import { useTable } from 'react-table';
+import { useTable, useGlobalFilter } from 'react-table';
 import MOCK_DATA from './MOCK_DATA.json';
+import { GlobalFilter } from './GlobalFilter';
 
-export default function Table() {
+export default function FilteringTable() {
 
-    // const columns = useMemo(() => COLUMNS, []);
-    const columns = useMemo(() => GROUPED_COLUMNS, []);
-    const data = useMemo(() => MOCK_DATA, []);
+    const columns = useMemo(() => COLUMNS, []);
+    // const columns = useMemo(() => GROUPED_COLUMNS, []);
+    const data = useMemo(() => MOCK_DATA.filter((obj, index) => {
+        if(index < 20)
+            return obj;
+    }), []);
 
     useEffect(() => {
         document.title = "React Table"
     }, [])
 
-    const tableInstance = useTable({ columns, data });
-    const { getTableProps, getTableBodyProps,
+    const tableInstance = useTable({ columns, data }, useGlobalFilter);
+
+
+    const { 
+        getTableProps,
+        getTableBodyProps,
         footerGroups,
-         headerGroups, rows, prepareRow } = tableInstance;
+        headerGroups,
+        rows,
+        state,
+        setGlobalFilter,
+        prepareRow
+     } = tableInstance;
+
+     const { globalFilter } = state;
+
     return (
         <div>
+            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
             <table {...getTableProps()}  className='table table-hover table-bordered text-center'>
                 <thead className='bg-success'>
                     {

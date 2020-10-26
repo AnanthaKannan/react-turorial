@@ -26,12 +26,22 @@ import AnalogClock from './advanceCss/analogClock/AnalogClock'
 // import DraftEditor from './draftEditor/DraftEditor';
 import AnimatedEyes from './advanceCss/animatedEyes/AnimatedEyes';
 import Table from './table/Table';
+import SortingTable from './table/SortingTable';
+import FilteringTable from './table/FilteringTable';
 
 
 export const routes = [
     {
         COMPONENT: <Table />,
         PATH: "/Table"
+    },
+    {
+        COMPONENT: <SortingTable />,
+        PATH: "/SortingTable"
+    },
+    {
+        COMPONENT: <FilteringTable />,
+        PATH: "/FilteringTable"
     },
     {
         COMPONENT: <AnimatedEyes />,
