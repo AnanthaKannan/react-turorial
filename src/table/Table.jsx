@@ -12,7 +12,7 @@ export default function Table() {
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
     return (
         <div>
-            <table {...getTableProps()} >
+            <table {...getTableProps()}  className='table table-hover'>
                 <thead>
                     {
                         headerGroups.map((headerGroups) => (
@@ -27,10 +27,20 @@ export default function Table() {
                     }
                     
                 </thead>
-                <tbody {...getTableBodyProps()}>
-                    <tr>
-                        <td></td>
+                <tbody {...getTableBodyProps()}>{
+                    rows.map(row => {
+                    prepareRow(row)
+                    return(
+                    <tr {...row.getRowProps()} >{
+                        row.cells.map((cell) => {
+                        return <td {...cell.getCellProps()}>{ cell.render('Cell') }</td>
+                        })
+                    }
                     </tr>
+                    )
+                    })
+                }
+                    
                 </tbody>
             </table>
         </div>
