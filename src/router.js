@@ -28,9 +28,18 @@ import AnimatedEyes from './advanceCss/animatedEyes/AnimatedEyes';
 import Table from './table/Table';
 import SortingTable from './table/SortingTable';
 import FilteringTable from './table/FilteringTable';
-
+import BaseContext from './hook/useContext/BaseContext';
+import UseRefHook from './hook/useRef/UseRefHook';
 
 export const routes = [
+    {
+        COMPONENT: <UseRefHook />,
+        PATH: "/useRef"
+    },
+    {
+        COMPONENT: <BaseContext />,
+        PATH: "/useContext"
+    },
     {
         COMPONENT: <Table />,
         PATH: "/Table"
