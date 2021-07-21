@@ -30,8 +30,13 @@ import SortingTable from './table/SortingTable';
 import FilteringTable from './table/FilteringTable';
 import BaseContext from './hook/useContext/BaseContext';
 import UseRefHook from './hook/useRef/UseRefHook';
+import UseMemoHook from './hook/UseMemoHook';
 
 export const routes = [
+    {
+        COMPONENT: <UseMemoHook />,
+        PATH: "/useMemo"
+    },
     {
         COMPONENT: <UseRefHook />,
         PATH: "/useRef"
